@@ -1,12 +1,12 @@
 /* Macedonia presentation mapping. This file changes rendered text only and never changes database records, IDs, RPC calls, or routes. */
 (function(){
-  var names=["Diesel Supply Package","Lubricants Reserve Package","LPG Distribution Package","Bulk Storage Allocation","Marine Fuel Supply Package"];
+  var names=["Macedonia Product 01","Macedonia Product 02","Macedonia Product 03","Macedonia Product 04","Macedonia Product 05"];
   var descriptions=[
-    "A diesel-focused oil package displayed from the existing product record.",
-    "A lubricants and workshop-supply package displayed from the existing product record.",
-    "An LPG distribution package displayed from the existing product record.",
-    "A bulk storage and logistics package displayed from the existing product record.",
-    "A marine fuel supply package displayed from the existing product record."
+    "A Macedonia Products package displayed from the existing product record.",
+    "A Macedonia Products package displayed from the existing product record.",
+    "A Macedonia Products package displayed from the existing product record.",
+    "A Macedonia Products package displayed from the existing product record.",
+    "A Macedonia Products package displayed from the existing product record."
   ];
   function position(product,tier){
     if(Number.isFinite(Number(tier))) return Math.max(0,Math.min(names.length-1,Number(tier)));

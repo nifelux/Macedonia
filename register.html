@@ -383,11 +383,6 @@
 
           <form id="registerForm">
             <div class="form-group">
-              <label class="form-label">Full Name</label>
-              <input type="text" id="fullName" class="form-input" placeholder="Your full name" autocomplete="name">
-            </div>
-
-            <div class="form-group">
               <label class="form-label">Email Address</label>
               <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email">
             </div>
@@ -408,6 +403,11 @@
                   </svg>
                 </button>
               </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="fullName">Full Name</label>
+              <input type="text" id="fullName" class="form-input" placeholder="Your full name" autocomplete="name" required>
             </div>
 
             <div class="form-group">

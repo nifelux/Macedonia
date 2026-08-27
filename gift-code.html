@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Reward Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css"/>
+  <script src="assets/js/macedonia-display.js"></script>
+  <style>
+    /* Design reminder — Contemporary Energy Ledger: refined deep-blue workwear,
+       signal-yellow verification details, and restrained editorial typography. */
+    :root { --ink:#082d4d; --ink-deep:#06223b; --blue:#0a67aa; --gold:#f3bb3d; --canvas:#f5f7f8; --line:#dfe7ea; --muted:#6c7b87; }
+    * { box-sizing:border-box; }
+    body { background:var(--canvas); color:var(--ink); }
+    .gift-page { min-height:100vh; max-width:760px; margin:0 auto; background:linear-gradient(180deg,#fff 0,#f5f7f8 100%); overflow:hidden; }
+    .gift-topbar { height:74px; display:flex; align-items:center; gap:13px; padding:0 20px; background:rgba(255,255,255,.94); border-bottom:1px solid #e8edef; }
+    .gift-topbar .back-btn { display:grid; place-items:center; width:42px; height:42px; flex:0 0 42px; border:1px solid #d7e0e5; border-radius:14px; background:#f3f8fa; color:var(--ink); text-decoration:none; font-size:30px; line-height:1; font-family:Arial,sans-serif; }
+    .gift-topbar-title { font-family:Fraunces,serif; font-size:22px; font-weight:600; letter-spacing:-.02em; }
+    .gift-topbar-mark { width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px #fff4d4; }
+    .gift-hero { position:relative; padding:35px 25px 40px; overflow:hidden; color:#fff; background:radial-gradient(circle at 88% 10%,rgba(55,147,207,.9),transparent 34%),linear-gradient(130deg,#062946 0%,#074c80 61%,#0868ad 100%); }
+    .gift-hero:after { content:""; position:absolute; width:290px; height:290px; right:-140px; bottom:-175px; border:1px solid rgba(255,255,255,.19); border-radius:50%; box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 57px rgba(255,255,255,.025); }
+    .gift-hero-inner { position:relative; z-index:1; }
+    .gift-kicker { display:flex; align-items:center; gap:9px; margin-bottom:23px; color:#c4e3f5; font-family:"DM Mono",monospace; font-size:10px; font-weight:500; letter-spacing:.17em; }
+    .gift-kicker:before { content:""; width:26px; height:2px; background:var(--gold); }
+    .gift-emblem { display:grid; place-items:center; width:64px; height:64px; margin-bottom:20px; border:1px solid rgba(255,255,255,.26); border-radius:20px; background:rgba(0,29,53,.19); box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 15px 34px rgba(0,19,35,.21); }
+    .gift-emblem svg { width:34px; height:34px; stroke:var(--gold); stroke-width:1.6; fill:none; }
+    .gift-hero h1 { max-width:390px; margin:0; color:#fff!important; font-family:Fraunces,serif; font-size:31px; line-height:1.08; font-weight:600; letter-spacing:-.035em; }
+    .gift-hero p { max-width:355px; margin:12px 0 0; color:#d7e8f1!important; font-size:14px; line-height:1.55; }
+    .gift-register { display:flex; align-items:center; gap:10px; margin-top:25px; color:#e5f0f6!important; font-size:11px; font-weight:700; letter-spacing:.02em; }
+    .gift-register svg { width:16px; height:16px; color:var(--gold); }
+    .gift-main { position:relative; margin-top:-17px; padding:0 16px 42px; }
+    .redeem-panel { position:relative; z-index:2; padding:23px 20px 20px; border:1px solid rgba(211,223,229,.9); border-radius:21px; background:#fff; box-shadow:0 17px 45px rgba(15,56,82,.11); }
+    .panel-label { color:#7c8b95; font-family:"DM Mono",monospace; font-size:10px; letter-spacing:.15em; font-weight:500; }
+    .redeem-title-row { display:flex; align-items:center; justify-content:space-between; gap:15px; margin-top:8px; }
+    .redeem-title { margin:0; color:var(--ink); font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-.025em; }
+    .secure-chip { display:inline-flex; align-items:center; gap:5px; padding:6px 8px; border-radius:7px; background:#f3f8fa; color:#527083; font-family:"DM Mono",monospace; font-size:9px; font-weight:500; letter-spacing:.07em; white-space:nowrap; }
+    .secure-chip svg { width:12px; height:12px; stroke:#1780b6; fill:none; stroke-width:2; }
+    .gift-input { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; margin:20px 0 0; }
+    .gift-input input { width:100%; min-width:0; height:55px; padding:0 16px; border:1px solid #cbd9df; border-radius:12px; background:#fbfcfd; color:var(--ink); font-family:"DM Mono",monospace; font-size:14px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; outline:none; transition:border-color .18s ease,box-shadow .18s ease,background .18s ease; }
+    .gift-input input::placeholder { color:#9aabb5; letter-spacing:.13em; }
+    .gift-input input:focus { border-color:#0b72b4; background:#fff; box-shadow:0 0 0 4px rgba(11,114,180,.12); }
+    .gift-input button { height:55px; padding:0 18px; border:0; border-radius:12px; background:var(--ink); color:#fff; font-family:"DM Sans",sans-serif; font-size:14px; font-weight:800; cursor:pointer; box-shadow:0 9px 18px rgba(5,38,65,.2); transition:transform .16s cubic-bezier(.23,1,.32,1),background .16s ease,box-shadow .16s ease; }
+    .gift-input button:hover { background:#0a426e; box-shadow:0 11px 24px rgba(5,38,65,.25); }
+    .gift-input button:active { transform:scale(.97); }
+    .gift-input button:disabled { cursor:wait; opacity:.72; box-shadow:none; }
+    #giftAlert { margin:13px 0 0 !important; border-radius:10px; }
+    .reward-note { display:flex; align-items:flex-start; gap:8px; margin-top:16px; color:#778994; font-size:11px; line-height:1.5; }
+    .reward-note i { display:grid; place-items:center; width:17px; height:17px; flex:0 0 17px; border-radius:50%; background:#fff2ce; color:#9b7002; font-style:normal; font-size:11px; font-weight:800; }
+    .history-section { margin-top:27px; }
+    .history-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; padding:0 5px 11px; }
+    .history-heading h2 { margin:0; color:var(--ink); font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-.025em; }
+    .history-heading p { margin:4px 0 0; color:var(--muted); font-size:11px; }
+    .history-count { padding:5px 8px; border:1px solid #dbe5e9; border-radius:999px; color:#638090; font-family:"DM Mono",monospace; font-size:10px; white-space:nowrap; }
+    #redemptions { overflow:hidden; border:1px solid #dce6ea; border-radius:18px; background:#fff; box-shadow:0 11px 27px rgba(17,61,85,.06); }
+    .history-loading,.history-empty,.history-error { display:flex; min-height:156px; align-items:center; justify-content:center; padding:25px; text-align:center; color:#6d8190; font-size:13px; }
+    .history-loading { gap:10px; font-family:"DM Mono",monospace; font-size:10px; letter-spacing:.08em; }
+    .history-spinner { width:18px; height:18px; border:2px solid #d9e6eb; border-top-color:#167eb7; border-radius:50%; animation:giftspin .7s linear infinite; }
+    @keyframes giftspin { to { transform:rotate(360deg); } }
+    .history-empty { flex-direction:column; gap:10px; }
+    .history-empty-mark { display:grid; place-items:center; width:42px; height:42px; border-radius:14px; background:#f4f8fa; color:#7a94a3; }
+    .history-empty-mark svg { width:21px; height:21px; stroke:currentColor; fill:none; stroke-width:1.7; }
+    .history-empty strong { color:#38576b; font-size:14px; }
+    .history-empty span { max-width:250px; color:#81929d; font-size:12px; line-height:1.5; }
+    .history-error { flex-direction:column; gap:9px; }
+    .history-error strong { color:#a84835; font-size:13px; }
+    .history-error button { border:0; background:transparent; color:#0870b0; font:700 12px "DM Sans",sans-serif; text-decoration:underline; cursor:pointer; }
+    .redemption-item { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:15px; padding:17px 17px; border-bottom:1px solid #edf1f3; }
+    .redemption-item:last-child { border-bottom:0; }
+    .redemption-meta { min-width:0; }
+    .redemption-code { display:flex; align-items:center; gap:8px; min-width:0; color:#0d3957; font-family:"DM Mono",monospace; font-size:12px; font-weight:500; letter-spacing:.08em; }
+    .redemption-code:before { content:""; width:7px; height:7px; flex:0 0 7px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px #fff4d5; }
+    .redemption-date { margin-top:6px; color:#85949d; font-size:11px; }
+    .redemption-amount { color:#11704f; font-family:Fraunces,serif; font-size:18px; font-weight:600; letter-spacing:-.02em; white-space:nowrap; }
+    .redemption-amount:before { content:"+"; margin-right:1px; }
+    @media (max-width:390px) { .gift-hero h1 { font-size:28px; } .gift-input button { padding:0 14px; } .redeem-panel { padding:22px 16px 18px; } }
+    @media (prefers-reduced-motion:reduce) { .gift-input input,.gift-input button { transition:none; } .history-spinner { animation:none; } }
+  </style>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+  <div class="gift-page">
+    <header class="gift-topbar">
+      <a class="back-btn" href="profile.html" aria-label="Back to profile">‹</a>
+      <span class="gift-topbar-mark" aria-hidden="true"></span>
+      <span class="gift-topbar-title">Reward Code</span>
+    </header>
+
+    <section class="gift-hero" aria-labelledby="gift-title">
+      <div class="gift-hero-inner">
+        <div class="gift-kicker">MACEDONIA REWARD DESK</div>
+        <div class="gift-emblem" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8H8.2a2.2 2.2 0 1 1 2.15-2.7C10.95 6.45 12 8 12 8Zm0 0h3.8a2.2 2.2 0 1 0-2.15-2.7C13.05 6.45 12 8 12 8Z"/></svg></div>
+        <h1 id="gift-title">Redeem a reward code.</h1>
+        <p>Apply an eligible Macedonia reward code to your account. Every confirmed reward is registered in your account activity.</p>
+        <div class="gift-register"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> VERIFIED ACCOUNT CREDIT</div>
+      </div>
+    </section>
+
+    <main class="gift-main">
+      <section class="redeem-panel" aria-labelledby="redeem-title">
+        <div class="panel-label">REWARD ACCESS</div>
+        <div class="redeem-title-row">
+          <h2 class="redeem-title" id="redeem-title">Enter your code</h2>
+          <span class="secure-chip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>SECURE</span>
+        </div>
+        <div class="gift-input">
+          <input type="text" id="codeInput" placeholder="REWARD CODE" maxlength="20" autocomplete="off" spellcheck="false" oninput="this.value=this.value.toUpperCase()"/>
+          <button type="button" id="redeemButton" onclick="redeem()">Redeem</button>
+        </div>
+        <div id="giftAlert" class="alert" role="status" aria-live="polite"></div>
+        <div class="reward-note"><i>i</i><span>A successful code is credited once and recorded in both your reward register and wallet activity.</span></div>
+      </section>
+
+      <section class="history-section" aria-labelledby="history-title">
+        <div class="history-heading">
+          <div><h2 id="history-title">Reward register</h2><p>Your confirmed code redemptions.</p></div>
+          <span class="history-count" id="historyCount">— RECORDS</span>
+        </div>
+        <div id="redemptions"><div class="history-loading"><span class="history-spinner"></span>LOADING REGISTER</div></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="assets/js/supabase.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+  <script>
+  (function(){
+    var uid="";
+    var accessToken="";
+    var button=document.getElementById("redeemButton");
+    var countEl=document.getElementById("historyCount");
+    var register=document.getElementById("redemptions");
+    var emptyMark='<div class="history-empty-mark"><svg viewBox="0 0 24 24"><path d="M12 8v13M3 12h18M12 12H3V8h18v4M7 8a2.5 2.5 0 1 1 4.4-1.6L12 8m0 0 .6-1.6A2.5 2.5 0 1 1 17 8"/></svg></div>';
+    function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+    function escapeHtml(value){return String(value||"").replace(/[&<>'"]/g,function(character){return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[character];});}
+    function setCount(total){countEl.textContent=total+" "+(total===1?"RECORD":"RECORDS");}
+    function showEmpty(){setCount(0);register.innerHTML='<div class="history-empty">'+emptyMark+'<strong>No rewards registered yet</strong><span>Redeem an eligible code to add your first account reward.</span></div>';}
+    async function loadRedemptions(){
+      register.innerHTML='<div class="history-loading"><span class="history-spinner"></span>LOADING REGISTER</div>';
+      var response;
+      var result;
+      try {
+        response=await fetch("/api/bonus?action=gift-history",{headers:{"Authorization":"Bearer "+accessToken}});
+        result=await response.json();
+      } catch(error) {
+        setCount(0);
+        register.innerHTML='<div class="history-error"><strong>We could not load your reward register.</strong><button type="button" onclick="window.reloadGiftHistory()">Try again</button></div>';
+        return;
+      }
+      if(!response.ok || !result.ok){
+        setCount(0);
+        register.innerHTML='<div class="history-error"><strong>We could not load your reward register.</strong><button type="button" onclick="window.reloadGiftHistory()">Try again</button></div>';
+        return;
+      }
+      var records=result.records||[];
+      if(!records.length){showEmpty();return;}
+      setCount(records.length);
+      register.innerHTML=records.map(function(item){
+        var code=item.code||"REWARD CREDIT";
+        return '<article class="redemption-item"><div class="redemption-meta"><div class="redemption-code">'+escapeHtml(code)+'</div><div class="redemption-date">'+escapeHtml(window.MacedoniaAuth.timeAgo(item.created_at))+'</div></div><div class="redemption-amount">'+escapeHtml(window.MacedoniaAuth.money(item.amount))+'</div></article>';
+      }).join("");
+    }
+    window.reloadGiftHistory=function(){if(uid){loadRedemptions();}};
+    waitSb(async function(){
+      var session=await window.MacedoniaAuth.requireAuth(); if(!session)return;
+      uid=session.user.id;
+      accessToken=session.access_token;
+      await loadRedemptions();
+    });
+    window.redeem=async function(){
+      var code=document.getElementById("codeInput").value.trim();
+      var alert=document.getElementById("giftAlert");
+      if(!code){alert.textContent="Enter a reward code to continue.";alert.className="alert alert-error show";return;}
+      button.disabled=true;button.textContent="Checking…";alert.className="alert";
+      try {
+        var response=await fetch("/api/bonus?action=redeem-gift",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:uid,code:code})});
+        var data=await response.json();
+        if(data.ok){
+          alert.textContent="Reward confirmed — "+window.MacedoniaAuth.money(data.amount)+" has been added to your wallet.";
+          alert.className="alert alert-success show";
+          document.getElementById("codeInput").value="";
+          await loadRedemptions();
+        } else { alert.textContent=data.error||"This reward code could not be redeemed."; alert.className="alert alert-error show"; }
+      } catch(error) { alert.textContent="We could not reach the reward service. Please try again."; alert.className="alert alert-error show"; }
+      finally { button.disabled=false;button.textContent="Redeem"; }
+    };
+  })();
+  </script>
+</body>
+</html>

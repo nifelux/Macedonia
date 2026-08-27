@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Network Overview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    :root{
+      --primary-pink:        #EC4899;
+      --primary-purple:      #9333EA;
+      --pink-light:          #FCE7F3;
+      --text-dark:           #212121;
+      --white:               #FFFFFF;
+      --background-light:    #F5F5F5;
+      --text-muted:          #757575;
+      --border-light:        #E0E0E0;
+      --success-green:       #4CAF50;
+      --success-green-bg:    #E8F5E9;
+      --shadow-sm:0 2px 10px rgba(0,0,0,0.05);
+      --shadow-md:0 10px 30px rgba(0,0,0,0.08);
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+
+    /* Page-specific styles only — page-wrap, card, stat-box, empty,
+       loader, bottom-nav, vip-badge, #toast, and .anim all come from
+       the shared stylesheet. Redeclaring any of those here risks the
+       same partial-property cascade conflict already found on the
+       profile page (see that page's notes on .bottom-nav). The :root
+       block above is different — a variable definition doesn't have
+       that partial-merge risk, and giving this page its own copy
+       means it renders correctly even if the shared stylesheet fails
+       to load or serves a stale/different version. */
+
+    svg{stroke-linecap:round;stroke-linejoin:round;}
+
+    /* ============================================================
+       REFERRAL HERO
+       ============================================================ */
+    .ref-hero{
+      position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 88% -10%, rgba(255,255,255,0.20) 0%, transparent 50%),
+        radial-gradient(circle at -10% 115%, rgba(255,255,255,0.14) 0%, transparent 50%),
+        linear-gradient(155deg,var(--primary-pink) 0%,var(--primary-purple) 100%);
+      padding:26px 20px 46px; color:#fff;
+      box-shadow:0 20px 50px rgba(236,72,153,0.28);
+    }
+    .ref-hero::before,.ref-hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,0.08);}
+    .ref-hero::before{width:200px;height:200px;top:-90px;right:-50px;}
+    .ref-hero::after{width:140px;height:140px;bottom:-60px;left:-40px;background:rgba(255,255,255,0.10);}
+    .ref-hero > *{position:relative;z-index:1;}
+    .ref-hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+    .ref-hero-label{font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.85;}
+    .ref-hero .vip-badge{background:rgba(255,255,255,.9);}
+    .ref-code-box{
+      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
+      border-radius:16px;padding:16px 18px;margin-top:14px;
+      display:flex;align-items:center;justify-content:space-between;
+      backdrop-filter:blur(6px);
+    }
+    .ref-code{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:.09em;}
+    .copy-btn{
+      display:flex;align-items:center;gap:6px;
+      padding:9px 16px;border-radius:20px;background:rgba(255,255,255,.22);color:#fff;
+      font-size:12px;font-weight:700;cursor:pointer;transition:transform .16s var(--ease, ease);border:none;
+    }
+    .copy-btn:active{transform:scale(.93);}
+    .copy-btn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.5;fill:none;}
+    .ref-link-box{
+      background:rgba(255,255,255,.10);border-radius:12px;padding:11px 15px;margin-top:10px;
+      font-size:11.5px;color:rgba(255,255,255,.82);word-break:break-all;
+    }
+    .share-row{margin-top:12px;}
+    .share-row .copy-btn{background:#fff;color:var(--primary-purple);font-weight:800;padding:10px 18px;box-shadow:0 8px 20px rgba(0,0,0,0.18);}
+    .share-row .copy-btn svg{width:15px;height:15px;stroke-width:2;}
+
+    /* ============================================================
+       Package Tier PROGRESS
+       ============================================================ */
+    .vip-progress{
+      background:var(--white);border-radius:22px;margin:-30px 16px 18px;padding:20px;
+      box-shadow:var(--shadow-md);border:1px solid var(--border-light);position:relative;z-index:5;
+    }
+    .vip-prog-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:14px;letter-spacing:-.01em;}
+    .vip-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+    .vip-tier{
+      border-radius:14px;padding:12px 6px;text-align:center;border:1.5px solid var(--border-light);
+      background:var(--background-light);transition:all .2s;
+    }
+    .vip-tier.unlocked{
+      border-color:#FFC107;background:linear-gradient(155deg,#FFF3CD,#FCE7A8);
+      box-shadow:0 8px 20px rgba(255,193,7,0.25);transform:translateY(-2px);
+    }
+    .vt-label{font-size:12px;font-weight:700;color:var(--text-muted);}
+    .vip-tier.unlocked .vt-label{color:#7A5C00;}
+    .vt-req{font-size:9.5px;color:var(--text-muted);margin-top:3px;font-weight:600;}
+    .vip-tier.unlocked .vt-req{color:#8A6A00;}
+    .vt-icon{width:20px;height:20px;margin:0 auto 5px;color:var(--text-muted);}
+    .vt-icon svg{width:100%;height:100%;stroke:currentColor;stroke-width:2;fill:none;}
+    .vip-tier.unlocked .vt-icon{color:#B8860B;}
+
+    /* ============================================================
+       TEAM DEPOSITS CARD
+       ============================================================ */
+    .deposits-card{margin:0 16px 20px;overflow:hidden;}
+    .dc-header{
+      position:relative;overflow:hidden;
+      background:linear-gradient(155deg,var(--primary-pink),var(--primary-purple));padding:20px 18px;color:#fff;
+    }
+    .dc-header::before{content:"";position:absolute;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.10);top:-50px;right:-30px;}
+    .dc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;opacity:.85;position:relative;z-index:1;}
+    .dc-amount{font-family:'Fraunces',serif;font-size:28px;font-weight:700;margin-top:5px;position:relative;z-index:1;}
+    .dc-sub{font-size:12px;opacity:.85;margin-top:5px;position:relative;z-index:1;}
+    .dc-breakdown{display:grid;grid-template-columns:repeat(3,1fr);}
+    .dc-breakdown.levels-1{grid-template-columns:repeat(1,1fr);}
+    .dc-item{padding:14px 8px;text-align:center;border-right:1px solid var(--border-light);}
+    .dc-item:last-child{border-right:none;}
+    .dc-item-val{font-family:'Fraunces',serif;font-size:14.5px;font-weight:700;color:var(--primary-pink);}
+    .dc-item-lbl{font-size:10px;color:var(--text-muted);margin-top:3px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;}
+
+    /* ============================================================
+       LEVEL TABS + MEMBERS LIST
+       ============================================================ */
+    .level-tabs{display:flex;gap:8px;padding:0 16px 14px;}
+    .ltab{
+      flex:1;padding:11px 4px;border-radius:12px;font-size:12px;font-weight:700;text-align:center;
+      border:1.5px solid var(--border-light);background:var(--white);color:var(--text-muted);
+      box-shadow:var(--shadow);transition:all .2s;
+    }
+    .ltab.on{
+      background:linear-gradient(135deg,var(--primary-pink),var(--primary-purple));border-color:var(--primary-pink);color:#fff;
+      box-shadow:0 8px 20px rgba(236,72,153,0.3);
+    }
+    .ltab:active{transform:scale(.96);}
+
+    .members-card{margin:0 16px;}
+    .member-item{
+      display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border-light);
+      background:var(--white);transition:background .16s;
+    }
+    .member-item:last-child{border-bottom:none;}
+    .member-item:active{background:var(--background-light);}
+    .member-avatar{
+      width:42px;height:42px;border-radius:50%;
+      background:var(--pink-light);
+      display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+      color:var(--primary-purple);font-weight:800;font-family:'Fraunces',serif;
+    }
+    .member-name{font-size:14px;font-weight:700;color:var(--text-dark);}
+    .member-date{font-size:11px;color:var(--text-muted);margin-top:2px;font-weight:500;}
+    .member-status{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.02em;}
+    .status-active{background:var(--success-green-bg);color:var(--success-green);}
+    .status-inactive{background:var(--background-light);color:var(--text-muted);}
+
+    .nav-icon{width:21px;height:21px;stroke:currentColor;stroke-width:2;fill:none;}
+
+    @media (max-width:374px){
+      .vip-progress{margin-left:12px;margin-right:12px;}
+      .deposits-card,.members-card{margin-left:12px;margin-right:12px;}
+      .level-tabs{padding-left:12px;padding-right:12px;}
+      .ref-code{font-size:18px;}
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<div class="page-wrap network-page">
+  <div class="ref-hero anim anim-1">
+    <div class="ref-hero-top">
+      <div class="ref-hero-label">Your Referral Code</div>
+      <span class="vip-badge vip-0" data-vip>Member</span>
+    </div>
+    <div class="ref-code-box">
+      <div class="ref-code" id="refCode">—</div>
+      <button class="copy-btn" onclick="copyCode()">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        COPY
+      </button>
+    </div>
+    <div class="ref-link-box" id="refLink">Loading…</div>
+    <div class="share-row">
+      <button class="copy-btn" onclick="shareLink()">
+        <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        Share Link
+      </button>
+    </div>
+  </div>
+
+  <div class="vip-progress anim anim-2" id="vipProgressCard" style="display:none">
+    <div class="vip-prog-title">Package Tier Level Progress <span id="activeRefs" style="color:var(--text-muted);font-weight:400;font-size:12px"></span></div>
+    <div class="vip-tiers">
+      <div class="vip-tier" id="vt1"><div class="vt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="vt-label">Package Tier 1</div><div class="vt-req">3 refs</div></div>
+      <div class="vip-tier" id="vt2"><div class="vt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="vt-label">Package Tier 2</div><div class="vt-req">5 refs</div></div>
+      <div class="vip-tier" id="vt3"><div class="vt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="vt-label">Package Tier 3</div><div class="vt-req">10 refs</div></div>
+      <div class="vip-tier" id="vt4"><div class="vt-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></div><div class="vt-label">Package Tier 4</div><div class="vt-req">25 refs</div></div>
+    </div>
+  </div>
+
+  <div class="section anim anim-3">
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-val" id="totalTeam">0</div><div class="stat-lbl">Network Total</div></div>
+      <div class="stat-box"><div class="stat-val" id="activeTeam">0</div><div class="stat-lbl">Active</div></div>
+      <div class="stat-box"><div class="stat-val" id="refEarnings">₦0</div><div class="stat-lbl">Earned</div></div>
+    </div>
+  </div>
+
+  <div class="deposits-card card anim anim-3">
+    <div class="dc-header"><div class="dc-label">Network Capital Funded</div><div class="dc-amount" id="teamDepositsTotal">₦0</div><div class="dc-sub" id="dcSub">Combined capital funding from your network</div></div>
+    <div class="dc-breakdown" id="dcBreakdown">
+      <div class="dc-item"><div class="dc-item-val" id="l1Deposits">₦0</div><div class="dc-item-lbl">Level 1</div></div>
+      <div class="dc-item" id="l2DepositsItem"><div class="dc-item-val" id="l2Deposits">₦0</div><div class="dc-item-lbl">Level 2</div></div>
+      <div class="dc-item" id="l3DepositsItem"><div class="dc-item-val" id="l3Deposits">₦0</div><div class="dc-item-lbl">Level 3</div></div>
+    </div>
+  </div>
+
+  <div class="level-tabs anim anim-4" id="levelTabs">
+    <button class="ltab on" onclick="switchLevel(this,1)" id="ltab1">Level 1</button>
+    <button class="ltab" onclick="switchLevel(this,2)" id="ltab2">Level 2</button>
+    <button class="ltab" onclick="switchLevel(this,3)" id="ltab3">Level 3</button>
+  </div>
+  <div id="membersList" class="anim anim-4"><div class="loader-wrap"><div class="loader"></div></div></div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item" onclick="location.href='dashboard.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+  <button class="nav-item" onclick="location.href='products.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Packages</button>
+  <button class="nav-item active" onclick="location.href='team.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Network</button>
+  <button class="nav-item" onclick="location.href='profile.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</button>
+</nav>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+
+<!-- ============================================================
+     ORIGINAL BUSINESS LOGIC — UNCHANGED
+     ============================================================ -->
+<script>
+(function(){
+  var userId="",refCode="",activeLevel=1,l1Members=[],l2Members=[],l3Members=[];
+  var referralLevels=3, vipEnabled=true; // overwritten from /api/team settings once loaded
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return;
+    userId=s.user.id;
+    var {data:p}=await window.sb.from("profiles").select("referral_code").eq("id",userId).single();
+    refCode=p?.referral_code||""; document.getElementById("refCode").textContent=refCode;
+    var link=location.origin+"/register.html?ref="+refCode;
+    document.getElementById("refLink").textContent=link;
+    window.MacedoniaAuth.loadProfile(userId); // fills the Package Tier badge in the hero via [data-vip]
+
+    try {
+      var r=await fetch("/api/team?user_id="+userId);
+      var d=await r.json();
+      if(!d.ok) throw new Error(d.error||"Failed to load team");
+      l1Members=d.l1||[]; l2Members=d.l2||[]; l3Members=d.l3||[];
+      var activeCount=d.active_count||0, totalTeam=d.total_team||0;
+
+      // ── Apply admin-controlled settings (referral depth + Package Tier toggle) ──
+      var settings=d.settings||{};
+      referralLevels=settings.referral_levels||3;
+      vipEnabled=settings.vip_enabled!==false;
+      applySettingsToUI(settings);
+
+      document.getElementById("totalTeam").textContent=totalTeam;
+      document.getElementById("activeTeam").textContent=activeCount;
+      document.getElementById("activeRefs").textContent="("+activeCount+" active investors)";
+      document.getElementById("refEarnings").textContent="₦"+(d.earned||0).toLocaleString();
+      var teamDeposits=d.total_team_deposits||0;
+      document.getElementById("teamDepositsTotal").textContent="₦"+teamDeposits.toLocaleString();
+      document.getElementById("l1Deposits").textContent="₦"+(d.l1_deposits||0).toLocaleString();
+      document.getElementById("l2Deposits").textContent="₦"+(d.l2_deposits||0).toLocaleString();
+      document.getElementById("l3Deposits").textContent="₦"+(d.l3_deposits||0).toLocaleString();
+
+      if(vipEnabled){
+        var thresholds={1:3,2:5,3:10,4:25};
+        [1,2,3,4].forEach(function(n){
+          var el=document.getElementById("vt"+n);
+          if(activeCount>=thresholds[n]){ el.classList.add("unlocked"); el.querySelector(".vt-req").textContent="✅ Unlocked"; }
+          else { el.querySelector(".vt-req").textContent=activeCount+"/"+thresholds[n]+" refs"; }
+        });
+      }
+      renderLevel(1);
+    } catch(e){
+      console.error("Team load error:",e);
+      document.getElementById("totalTeam").textContent="—";
+      document.getElementById("activeTeam").textContent="—";
+    }
+  });
+
+  // Shows/hides the Package Tier card and Level 2/3 UI to match what the admin
+  // has configured in site_settings (vip_enabled, referral_levels).
+  function applySettingsToUI(settings){
+    document.getElementById("vipProgressCard").style.display = vipEnabled ? "" : "none";
+
+    var l1Pct = settings.referral_l1_percent!=null ? settings.referral_l1_percent : 20;
+    var l2Pct = settings.referral_l2_percent!=null ? settings.referral_l2_percent : 3;
+    var l3Pct = settings.referral_l3_percent!=null ? settings.referral_l3_percent : 2;
+    document.getElementById("ltab1").textContent = "Level 1 ("+l1Pct+"%)";
+
+    if(referralLevels < 3){
+      document.getElementById("ltab3").style.display="none";
+      document.getElementById("l3DepositsItem").style.display="none";
+    } else {
+      document.getElementById("ltab3").style.display="";
+      document.getElementById("l3DepositsItem").style.display="";
+      document.getElementById("ltab3").textContent = "Level 3 ("+l3Pct+"%)";
+    }
+    if(referralLevels < 2){
+      document.getElementById("ltab2").style.display="none";
+      document.getElementById("l2DepositsItem").style.display="none";
+      document.getElementById("dcSub").textContent="Deposits from your direct network members";
+    } else {
+      document.getElementById("ltab2").style.display="";
+      document.getElementById("l2DepositsItem").style.display="";
+      document.getElementById("ltab2").textContent = "Level 2 ("+l2Pct+"%)";
+      document.getElementById("dcSub").textContent="Combined capital funding from your network";
+    }
+    if(referralLevels<3) document.getElementById("dcBreakdown").classList.add(referralLevels<2?"levels-1":"");
+  }
+
+  window.switchLevel=function(btn,level){
+    if(level>referralLevels) return; // level tab hidden/disabled per admin settings
+    document.querySelectorAll(".ltab").forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on"); activeLevel=level; renderLevel(level);
+  };
+
+  function renderLevel(level){
+    var members=level===1?l1Members:level===2?l2Members:l3Members;
+    var el=document.getElementById("membersList");
+    if(!members.length){ el.innerHTML='<div class="empty"><div class="empty-icon">👥</div><p>No Level '+level+' members yet.</p></div>'; return; }
+    el.innerHTML='<div class="card members-card">'+(members.map(function(m){
+      var active=m.isActive!==false;
+      var name=m.full_name||m.email||"User";
+      return '<div class="member-item"><div class="member-avatar">'+name[0].toUpperCase()+'</div><div style="flex:1"><div class="member-name">'+name+'</div><div class="member-date">Joined '+new Date(m.created_at).toLocaleDateString()+'</div></div><span class="member-status '+(active?"status-active":"status-inactive")+'">'+(active?"Active":"Inactive")+'</span></div>';
+    }).join(""))+'</div>';
+  }
+
+  window.copyCode=function(){ navigator.clipboard.writeText(refCode).then(function(){window.MacedoniaAuth.toast("Referral code copied!");}); };
+  window.shareLink=function(){
+    var link=location.origin+"/register.html?ref="+refCode;
+    if(navigator.share){ navigator.share({title:"Join Macedonia",text:"Join me on Macedonia and explore oil-product packages! Use my code: "+refCode,url:link}); }
+    else { navigator.clipboard.writeText(link).then(function(){window.MacedoniaAuth.toast("Referral link copied!");}); }
+  };
+})();
+</script>
+</body>
+</html>

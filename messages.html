@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Messages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    .msg-item { background:var(--paper); border-bottom:1px solid var(--border); padding:16px; cursor:pointer; transition:background .15s; }
+    .msg-item.unread { border-left:3px solid var(--red); }
+    .msg-title { font-size:14px; font-weight:700; color:var(--ink); }
+    .msg-item.unread .msg-title { color:var(--red); }
+    .msg-preview { font-size:12px; color:var(--muted); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .msg-time { font-size:11px; color:var(--muted); margin-top:4px; }
+    .unread-dot { width:8px; height:8px; background:var(--red); border-radius:50%; flex-shrink:0; }
+    #msgModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:200; align-items:flex-end; }
+    #msgModal.show { display:flex; }
+    .modal-box { background:var(--paper); border-radius:24px 24px 0 0; padding:24px; width:100%; max-height:70vh; overflow-y:auto; }
+    .modal-title { font-family:'Fraunces',serif; font-size:18px; font-weight:600; margin-bottom:8px; }
+    .modal-time { font-size:12px; color:var(--muted); margin-bottom:16px; }
+    .modal-body { font-size:14px; color:var(--ink); line-height:1.6; }
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<div class="page-wrap">
+  <div class="topbar"><a class="back-btn" href="profile.html">‹</a><span class="topbar-title">✉️ Messages</span><button onclick="markAll()" style="background:none;border:none;color:var(--red);font-size:13px;font-weight:700;cursor:pointer;margin-left:auto">Mark All Read</button></div>
+  <div id="msgList" style="background:var(--paper);margin:16px;border-radius:16px;box-shadow:var(--shadow);overflow:hidden"><div class="loader-wrap"><div class="loader"></div></div></div>
+</div>
+<div id="msgModal"><div class="modal-box"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px"><div class="modal-title" id="mTitle"></div><button onclick="closeMsg()" style="background:var(--bg);border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;flex-shrink:0;margin-left:12px">✕</button></div><div class="modal-time" id="mTime"></div><div class="modal-body" id="mBody"></div></div></div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script>
+(function(){
+  var uid="",msgs=[];
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+  waitSb(async function(){ var s=await window.MacedoniaAuth.requireAuth(); if(!s)return; uid=s.user.id; await load(); });
+  async function load(){
+    var r=await fetch("/api/messages?user_id="+uid); var d=await r.json(); msgs=d.messages||[];
+    var el=document.getElementById("msgList");
+    if(!msgs.length){ el.innerHTML='<div class="empty"><div class="empty-icon">✉️</div><p>No messages yet.</p></div>'; return; }
+    el.innerHTML=msgs.map(function(m,i){ return '<div class="msg-item'+(m.is_read?"":" unread")+'" onclick="openMsg('+i+')"><div style="display:flex;align-items:center;justify-content:space-between"><div class="msg-title">'+m.title+'</div>'+(m.is_read?"":'<div class="unread-dot"></div>')+'</div><div class="msg-preview">'+m.content+'</div><div class="msg-time">'+window.MacedoniaAuth.timeAgo(m.created_at)+'</div></div>'; }).join("");
+  }
+  window.openMsg=async function(i){
+    var m=msgs[i];
+    document.getElementById("mTitle").textContent=m.title;
+    document.getElementById("mTime").textContent=new Date(m.created_at).toLocaleString();
+    document.getElementById("mBody").textContent=m.content;
+    document.getElementById("msgModal").classList.add("show");
+    if(!m.is_read){ await fetch("/api/messages?action=mark-read",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:uid,message_id:m.id})}); msgs[i].is_read=true; }
+  };
+  window.closeMsg=function(){ document.getElementById("msgModal").classList.remove("show"); };
+  window.markAll=async function(){ await fetch("/api/messages?action=mark-read",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:uid})}); window.MacedoniaAuth.toast("All messages marked as read"); await load(); };
+})();
+</script>
+</body>
+</html>

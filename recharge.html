@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Capital Funding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    :root{
+      --primary-pink:        #EC4899;
+      --primary-purple:      #9333EA;
+      --pink-light:          #FCE7F3;
+      --text-dark:           #212121;
+      --white:               #FFFFFF;
+      --background-light:    #F5F5F5;
+      --text-muted:          #757575;
+      --border-light:        #E0E0E0;
+      --success-green:       #4CAF50;
+      --success-green-bg:    #E8F5E9;
+      --warning-orange:      #FF9800;
+      --warning-orange-bg:   #FFF3E0;
+      --danger-red:          #F44336;
+      --danger-red-bg:       #FFEBEE;
+      --shadow-sm:0 2px 10px rgba(0,0,0,0.05);
+    }
+    svg{stroke-linecap:round;stroke-linejoin:round;display:block;}
+    .balance-pill { background:var(--pink-light); border-radius:30px; padding:10px 16px; text-align:center; margin:16px; font-size:13px; color:var(--primary-purple); font-weight:600; }
+    .amount-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:0 16px; }
+    .amt-chip { background:var(--white); border:2px solid var(--border-light); border-radius:12px; padding:14px 6px; text-align:center; cursor:pointer; transition:all .15s; -webkit-tap-highlight-color:transparent; }
+    .amt-chip.on { background:var(--primary-pink); border-color:var(--primary-pink); color:#fff; }
+    .amt-chip .amt-val { font-family:'Fraunces',serif; font-size:14px; font-weight:600; }
+    .method-badge { display:flex; align-items:center; gap:8px; padding:10px 16px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+    .method-badge svg{width:15px;height:15px;stroke-width:2;fill:none;}
+    .mb-manual  { background:var(--warning-orange-bg); color:var(--warning-orange); }
+    .mb-manual svg{stroke:var(--warning-orange);}
+    .mb-monnify { background:var(--success-green-bg); color:var(--success-green); }
+    .mb-monnify svg{stroke:var(--success-green);}
+    .method-card { margin:16px; background:var(--white); border-radius:16px; box-shadow:var(--shadow-sm); overflow:hidden; border:1px solid var(--border-light); }
+    .transfer-info { padding:16px; }
+    .ti-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border-light); }
+    .ti-row:last-of-type { border-bottom:none; }
+    .ti-label { font-size:12px; color:var(--text-muted); }
+    .ti-val { font-family:'Fraunces',serif; font-size:14px; font-weight:600; color:var(--text-dark); }
+    .copy-btn { padding:4px 10px; border-radius:6px; background:var(--pink-light); color:var(--primary-purple); font-size:11px; font-weight:700; border:none; cursor:pointer; margin-left:6px; }
+    .narration-box { background:linear-gradient(155deg,var(--pink-light),#fff); border-radius:12px; padding:14px 16px; margin:0 16px; text-align:center; }
+    .nar-label { display:flex; align-items:center; justify-content:center; gap:6px; font-size:11px; font-weight:700; color:var(--primary-purple); text-transform:uppercase; letter-spacing:.06em; }
+    .nar-label svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none;}
+    .nar-code { font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--primary-purple); letter-spacing:.05em; margin:6px 0; }
+    .nar-hint { font-size:11px; color:var(--text-muted); }
+    .status-bar { display:flex; align-items:center; gap:8px; margin:12px 16px 0; padding:12px 14px; border-radius:12px; font-size:13px; font-weight:600; display:none; }
+    .status-bar.show { display:flex; }
+    .status-bar svg{width:16px;height:16px;stroke-width:2.2;fill:none;flex-shrink:0;}
+    .sb-pending { background:var(--warning-orange-bg); color:var(--warning-orange); }
+    .sb-pending svg{stroke:var(--warning-orange);}
+    .sb-success { background:var(--success-green-bg); color:var(--success-green); }
+    .sb-success svg{stroke:var(--success-green);}
+    .sb-failed  { background:var(--danger-red-bg); color:var(--danger-red); }
+    .sb-failed svg{stroke:var(--danger-red);}
+    .monnify-perm-note { display:flex; gap:10px; background:var(--success-green-bg); border-radius:12px; padding:14px 16px; margin:0 16px 16px; font-size:12px; color:var(--success-green); line-height:1.5; }
+    .monnify-perm-note svg{width:18px;height:18px;stroke:var(--success-green);stroke-width:2;fill:none;flex-shrink:0;margin-top:1px;}
+    .field-label { padding:0 16px; font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:6px; margin-top:12px; }
+    .sender-hint { padding:0 16px; font-size:11px; color:var(--text-muted); margin-top:5px; }
+    .info-box{margin:0 16px;background:var(--pink-light);border-radius:12px;padding:14px;}
+    .info-box-title{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--primary-purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+    .info-box-title svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none;}
+    .info-box li{font-size:12px;color:var(--primary-purple);padding-left:12px;position:relative;}
+    .info-box li span{position:absolute;left:0;}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<div class="page-wrap fund-page">
+  <div class="topbar">
+    <a class="back-btn" href="dashboard.html">‹</a>
+    <span class="topbar-title" style="display:flex;align-items:center;gap:8px">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--primary-pink);stroke-width:2;fill:none"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+      Fund Capital Account
+    </span>
+  </div>
+  <div class="balance-pill">Your Balance: <strong id="walBal">₦0.00</strong></div>
+
+  <!-- ═══ MANUAL FLOW UI (amount picker) ═══ -->
+  <div id="manualAmountSection">
+    <div style="padding:0 16px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px">Select Amount</div>
+    <div class="amount-grid">
+      <div class="amt-chip" data-v="3300" onclick="pickAmt(this)"><div class="amt-val">₦3,300</div></div>
+      <div class="amt-chip" data-v="6500" onclick="pickAmt(this)"><div class="amt-val">₦6,500</div></div>
+      <div class="amt-chip" data-v="13000" onclick="pickAmt(this)"><div class="amt-val">₦13,000</div></div>
+      <div class="amt-chip" data-v="27000" onclick="pickAmt(this)"><div class="amt-val">₦27,000</div></div>
+      <div class="amt-chip" data-v="55000" onclick="pickAmt(this)"><div class="amt-val">₦55,000</div></div>
+      <div class="amt-chip" data-v="110000" onclick="pickAmt(this)"><div class="amt-val">₦110,000</div></div>
+    </div>
+    <div style="padding:12px 16px 0">
+      <label style="font-size:12px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:6px">Or enter custom amount</label>
+      <input class="field-input" type="number" id="customAmt" placeholder="Enter amount (min ₦500)" oninput="onCustomAmt(this.value)"/>
+    </div>
+
+    <label class="field-label" for="senderName">Sender's name (as it appears on your bank account)</label>
+    <div style="padding:0 16px">
+      <input class="field-input" type="text" id="senderName" placeholder="e.g. John Doe" oninput="onSenderName(this.value)"/>
+    </div>
+    <div class="sender-hint">This helps us match your transfer to your account quickly.</div>
+  </div>
+
+  <div class="method-card" style="margin-top:16px" id="methodCard">
+    <div id="methodBadge" class="method-badge mb-manual">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 6 12 3 19 6"/><line x1="4" y1="10" x2="4" y2="21"/><line x1="20" y1="10" x2="20" y2="21"/><line x1="8" y1="14" x2="8" y2="17"/><line x1="12" y1="14" x2="12" y2="17"/><line x1="16" y1="14" x2="16" y2="17"/></svg>
+      <span id="methodBadgeText">Manual Bank Transfer</span>
+    </div>
+    <div class="transfer-info" id="manualTransferInfo">
+      <div class="ti-row"><span class="ti-label">Bank</span><span class="ti-val" id="man-bank">—</span></div>
+      <div class="ti-row"><span class="ti-label">Account Number</span><span><span class="ti-val" id="acctNo">—</span><button class="copy-btn" onclick="cp('acctNo')">COPY</button></span></div>
+      <div class="ti-row"><span class="ti-label">Account Name</span><span class="ti-val" id="man-name">—</span></div>
+      <div class="ti-row"><span class="ti-label">Amount</span><span><span class="ti-val" id="ti-amt">—</span><button class="copy-btn" id="tiAmtCopy" onclick="cp('ti-amt')" style="display:none">COPY</button></span></div>
+    </div>
+  </div>
+
+  <div class="narration-box" id="narrationBox" style="display:none">
+    <div class="nar-label"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Use this narration / description</div>
+    <div class="nar-code" id="narCode">—</div>
+    <button class="copy-btn" style="margin-top:4px;padding:6px 14px;font-size:12px" onclick="cp('narCode')">COPY NARRATION</button>
+    <p class="nar-hint" style="margin-top:6px">Include this code in your bank transfer description</p>
+  </div>
+
+  <!-- ═══ TARGETGROWTHS UI (hosted checkout) ═══ -->
+  <div id="targetgrowthsSection" style="display:none">
+    <div class="method-card">
+      <div class="method-badge mb-monnify"><span style="font-size:18px">💳</span> TargetGrowths Secure Checkout</div>
+      <div style="padding:14px 16px;color:var(--text-muted);font-size:13px;line-height:1.6">After you select an amount, TargetGrowths will open in this same browser tab to complete your payment. Your wallet is credited automatically only after the payment is verified.</div>
+    </div>
+  </div>
+
+  <!-- ═══ MONNIFY UI (permanent account, shown instead of amount picker) ═══ -->
+  <div id="monnifySection" style="display:none">
+    <div class="method-card">
+      <div class="method-badge mb-monnify">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Monnify — Your Permanent Account
+      </div>
+      <div class="transfer-info">
+        <div class="ti-row"><span class="ti-label">Bank</span><span class="ti-val" id="mon-bank">Loading…</span></div>
+        <div class="ti-row"><span class="ti-label">Account Number</span><span><span class="ti-val" id="mon-acct">Loading…</span><button class="copy-btn" onclick="cp('mon-acct')">COPY</button></span></div>
+        <div class="ti-row"><span class="ti-label">Account Name</span><span class="ti-val" id="mon-name">Loading…</span></div>
+      </div>
+    </div>
+    <div class="monnify-perm-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span>This account is <strong>permanently yours</strong>. Transfer any amount, any time — no need to start a new deposit each time. Funds reflect automatically within minutes, every time.</span>
+    </div>
+  </div>
+
+  <div class="status-bar" id="statusBar"></div>
+
+  <div style="padding:16px" id="ctaWrap">
+    <button class="btn btn-primary" id="rechBtn" disabled>Continue</button>
+  </div>
+
+  <div class="info-box">
+    <div class="info-box-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Important</div>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:5px" id="infoList">
+      <li><span>•</span>Minimum deposit: ₦500</li>
+      <li><span>•</span>Approval/crediting takes a few minutes</li>
+    </ul>
+  </div>
+  <div style="height:20px"></div>
+</div>
+
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script>
+(function(){
+  var selAmt=0,senderName="",userId="",userEmail="",fullName="",activeMethod="targetgrowths",pollT=null,currentRef="";
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+
+  var ICON_PENDING='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+  var ICON_SUCCESS='<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+  var ICON_FAILED='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return;
+    userId=s.user.id; userEmail=s.user.email;
+    var {data:prof}=await window.sb.from("profiles").select("full_name").eq("id",userId).single();
+    fullName=prof?.full_name||"";
+    document.getElementById("senderName").value=fullName; // pre-fill with account name, user can edit
+    senderName=fullName;
+    var {data:w}=await window.sb.from("wallets").select("balance").eq("user_id",userId).single();
+    document.getElementById("walBal").textContent=window.MacedoniaAuth.money(w?.balance||0);
+
+    try{
+      var r=await fetch("/api/deposit?action=method");
+      var d=await r.json();
+      activeMethod=d.method||"targetgrowths";
+      applyMethod(activeMethod);
+      handleReturnState();
+    }catch(e){ applyMethod("manual"); }
+
+    document.getElementById("rechBtn").addEventListener("click", handleRecharge);
+  });
+
+  function applyMethod(m){
+    var badge=document.getElementById("methodBadge");
+    var manualAmt=document.getElementById("manualAmountSection");
+    var methodCard=document.getElementById("methodCard");
+    var monnifySection=document.getElementById("monnifySection");
+    var targetSection=document.getElementById("targetgrowthsSection");
+    var btn=document.getElementById("rechBtn");
+    var infoList=document.getElementById("infoList");
+    activeMethod=m;
+    targetSection.style.display="none";
+    monnifySection.style.display="none";
+    methodCard.style.display="none";
+
+    if(m==="monnify"){
+      manualAmt.style.display="none";
+      monnifySection.style.display="block";
+      btn.style.display="none";
+      infoList.innerHTML='<li><span>•</span>Your account works forever — bookmark this page</li><li><span>•</span>Any amount is accepted, no minimum enforced by the account itself</li><li><span>•</span>Funds usually reflect within minutes</li>';
+      loadMonnifyAccount();
+    } else if(m==="targetgrowths"){
+      manualAmt.style.display="block";
+      targetSection.style.display="block";
+      btn.style.display="block";
+      btn.textContent="Pay Securely";
+      infoList.innerHTML='<li><span>•</span>Payments are completed on TargetGrowths secure checkout</li><li><span>•</span>Minimum TargetGrowths deposit: ₦600</li><li><span>•</span>Your wallet is credited after verified confirmation</li>';
+    } else {
+      manualAmt.style.display="block";
+      methodCard.style.display="block";
+      btn.style.display="block";
+      btn.textContent="Continue";
+      badge.className="method-badge mb-manual";
+    }
+  }
+
+  async function loadMonnifyAccount(){
+    try{
+      var r=await fetch("/api/deposit?action=monnify-account&user_id="+userId+"&email="+encodeURIComponent(userEmail)+"&name="+encodeURIComponent(fullName));
+      var d=await r.json();
+      if(d.ok){
+        document.getElementById("mon-bank").textContent=d.bank_name||"—";
+        document.getElementById("mon-acct").textContent=d.account_number||"—";
+        document.getElementById("mon-name").textContent=d.account_name||"—";
+      } else {
+        document.getElementById("mon-bank").textContent="Error";
+        window.MacedoniaAuth.toast(d.error||"Could not load your Monnify account");
+      }
+    }catch(e){ console.error(e); window.MacedoniaAuth.toast("Network error loading account"); }
+  }
+
+  window.pickAmt=function(el){
+    document.querySelectorAll(".amt-chip").forEach(function(c){c.classList.remove("on");});
+    el.classList.add("on"); document.getElementById("customAmt").value="";
+    selAmt=Number(el.dataset.v); updateAmtDisplay();
+    validateForm();
+  };
+  window.onCustomAmt=function(v){
+    document.querySelectorAll(".amt-chip").forEach(function(c){c.classList.remove("on");});
+    selAmt=Number(v)||0; updateAmtDisplay();
+    validateForm();
+  };
+  window.onSenderName=function(v){
+    senderName=v;
+    validateForm();
+  };
+  function validateForm(){
+    var min=activeMethod==="targetgrowths"?600:500;
+    document.getElementById("rechBtn").disabled = !(selAmt>=min && (activeMethod==="targetgrowths" || senderName.trim().length>0));
+  }
+  function updateAmtDisplay(){
+    var el=document.getElementById("ti-amt"),cp=document.getElementById("tiAmtCopy");
+    if(selAmt>0){ el.textContent="₦"+selAmt.toLocaleString(); cp.style.display="inline"; }
+    else { el.textContent="—"; cp.style.display="none"; }
+  }
+
+  async function handleRecharge(){
+    var min=activeMethod==="targetgrowths"?600:500;
+    if(!selAmt||selAmt<min){ window.MacedoniaAuth.toast("Minimum "+(activeMethod==="targetgrowths"?"TargetGrowths ":"")+"deposit is ₦"+min); return; }
+    if(activeMethod!=="targetgrowths" && !senderName.trim()){ window.MacedoniaAuth.toast("Please enter the sender's name"); return; }
+    var btn=document.getElementById("rechBtn");
+    btn.disabled=true; btn.textContent="Processing…";
+    if(activeMethod==="targetgrowths") await doTargetGrowths(); else await doManual();
+  }
+
+  async function doTargetGrowths(){
+    var btn=document.getElementById("rechBtn");
+    // A browser back/forward cache can restore the previous checkout page.
+    // Clear all old TargetGrowths session markers before creating a new deposit.
+    try{
+      localStorage.removeItem("schweppes_tg_pending_ref");
+      localStorage.removeItem("schweppes_tg_checkout");
+      localStorage.removeItem("schweppes_tg_checkout_launched_ref");
+    }catch(e){}
+    btn.disabled=true;
+    try{
+      var r=await fetch("/api/deposit?action=initiate-targetgrowths",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:userId,amount:selAmt})});
+      var d=await r.json();
+      if(!d.ok||!d.checkout_url) throw new Error(d.error||"Could not start checkout");
+      currentRef=d.reference;
+      try{
+        localStorage.setItem("schweppes_tg_pending_ref",d.reference);
+        localStorage.setItem("schweppes_tg_checkout",JSON.stringify({ref:d.reference,url:d.checkout_url,amount:selAmt,created_at:Date.now()}));
+        localStorage.setItem("schweppes_tg_checkout_launched_ref","");
+      }catch(e){}
+      btn.textContent="Opening secure checkout…";
+      window.location.href="/targetgrowths-checkout.html?ref="+encodeURIComponent(d.reference);
+    }catch(e){ window.MacedoniaAuth.toast(e.message||"Network error"); btn.disabled=false; btn.textContent="Pay Securely"; }
+  }
+
+  function handleReturnState(){
+    var q=new URLSearchParams(window.location.search), state=q.get("targetgrowths"), ref=q.get("ref");
+    var savedRef=null;
+    try{ savedRef=localStorage.getItem("schweppes_tg_pending_ref"); }catch(e){}
+    // Never treat an old localStorage reference as a fresh provider return.
+    // Only an explicit TargetGrowths redirect may start verification polling.
+    if(state!=="success"&&state!=="cancelled") return;
+    if(!ref) return;
+    if(savedRef && ref!==savedRef){
+      try{ localStorage.removeItem("schweppes_tg_pending_ref"); }catch(e){}
+      return;
+    }
+    var sb=document.getElementById("statusBar");
+    if(state==="cancelled"){
+      try{ localStorage.removeItem("schweppes_tg_pending_ref"); }catch(e){}
+      sb.className="status-bar sb-failed show"; sb.innerHTML=ICON_FAILED+'<span>Payment was cancelled. You can try again.</span>'; return;
+    }
+    if(!ref) return;
+    currentRef=ref; sb.className="status-bar sb-pending show"; sb.innerHTML=ICON_PENDING+'<span>Return received. Verifying payment with TargetGrowths…</span>'; startPoll(ref);
+  }
+
+  async function doManual(){
+    var btn=document.getElementById("rechBtn");
+    try{
+      var r=await fetch("/api/deposit?action=initiate-manual",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:userId,amount:selAmt,sender_name:senderName.trim()})});
+      var d=await r.json();
+      if(!d.ok){ window.MacedoniaAuth.toast(d.error||"Error"); btn.disabled=false; btn.textContent="Continue"; return; }
+      currentRef=d.reference;
+      document.getElementById("man-bank").textContent=d.bank_name;
+      document.getElementById("acctNo").textContent=d.account_number;
+      document.getElementById("man-name").textContent=d.account_name;
+      document.getElementById("narCode").textContent=d.narration;
+      document.getElementById("narrationBox").style.display="block";
+      btn.textContent="Waiting for approval…";
+      var sb=document.getElementById("statusBar");
+      sb.className="status-bar sb-pending show";
+      sb.innerHTML=ICON_PENDING+'<span>Transfer sent? We\'ll credit your wallet once approved.</span>';
+      startPoll(currentRef);
+    }catch(e){ window.MacedoniaAuth.toast("Network error"); btn.disabled=false; btn.textContent="Continue"; }
+  }
+
+  function startPoll(ref){
+    clearInterval(pollT);
+    var pollOnce=async function(){
+      try{
+        var r=await fetch("/api/deposit?action=status&ref="+encodeURIComponent(ref)+"&user_id="+encodeURIComponent(userId));
+        var d=await r.json();
+        var sb=document.getElementById("statusBar");
+        var providerState=String(d.provider_status||"").toLowerCase();
+        var providerConfirmed=d.method!=="targetgrowths"||["completed","success","successful","paid","settled","approved"].includes(providerState);
+        if(d.status==="completed"&&providerConfirmed){
+          clearInterval(pollT);
+          try{
+            localStorage.removeItem("schweppes_tg_pending_ref");
+            localStorage.removeItem("schweppes_tg_checkout");
+            localStorage.removeItem("schweppes_tg_checkout_launched_ref");
+          }catch(e){}
+          sb.className="status-bar sb-success show";
+          sb.innerHTML=ICON_SUCCESS+'<span>Wallet credited successfully! Redirecting…</span>';
+          setTimeout(function(){location.href="/dashboard.html";},2000);
+        }
+        if(d.status==="rejected"){
+          clearInterval(pollT);
+          try{
+            localStorage.removeItem("schweppes_tg_pending_ref");
+            localStorage.removeItem("schweppes_tg_checkout");
+            localStorage.removeItem("schweppes_tg_checkout_launched_ref");
+          }catch(e){}
+          sb.className="status-bar sb-failed show";
+          sb.innerHTML=ICON_FAILED+'<span>Deposit rejected. Please contact support.</span>';
+        }
+      }catch(e){console.warn(e);}
+    };
+    pollOnce();
+    pollT=setInterval(pollOnce,6000);
+  }
+
+  window.addEventListener("pageshow",function(ev){
+    if(ev.persisted){
+      var btn=document.getElementById("rechBtn");
+      if(btn){btn.disabled=false;btn.textContent="Pay Securely";}
+    }
+  });
+
+  window.cp=function(id){
+    var t=document.getElementById(id).textContent.trim();
+    navigator.clipboard.writeText(t).then(function(){window.MacedoniaAuth.toast("Copied!");});
+  };
+})();
+</script>
+</body>
+</html>

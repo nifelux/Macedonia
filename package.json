@@ -1,0 +1,14 @@
+{
+  "name": "macedonia-oil-investments",
+  "version": "1.0.0",
+  "description": "Macedonia public and account platform",
+  "scripts": {
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "engines": {
+    "node": ">=22 <23"
+  }
+}

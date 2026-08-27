@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macedonia — Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2196F3;
+      --primary-dark: #1976D2;
+      --primary-light: #E3F2FD;
+      --text-dark: #212121;
+      --white: #FFFFFF;
+      --background-light: #F5F5F5;
+      --text-muted: #757575;
+      --border-light: #E0E0E0;
+      --success-green: #4CAF50;
+      --success-green-bg: #E8F5E9;
+      --danger-red: #F44336;
+      --danger-red-bg: #FFEBEE;
+      --display: 'Fraunces', serif;
+      --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--body);
+      background: linear-gradient(to bottom right, var(--white), var(--primary-light), var(--white));
+      min-height: 100vh;
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 440px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .nav-links {
+      display: none;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+    }
+
+    .register-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .icon-circle svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--primary);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .title {
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: none;
+    }
+
+    .ref-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .ref-box svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary-dark);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .form-label .optional {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      padding: 12px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      font-family: var(--body);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    }
+
+    .form-input.uppercase {
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+    }
+
+    .toggle-password:hover {
+      color: var(--text-dark);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .footer-text {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 24px;
+    }
+
+    .footer-text a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-text a:hover {
+      color: var(--primary-dark);
+    }
+
+    .alert {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .alert.show {
+      display: flex;
+    }
+
+    .alert-error {
+      background: var(--danger-red-bg);
+      color: var(--danger-red);
+      border: 1px solid #FFCDD2;
+    }
+
+    .alert-success {
+      background: var(--success-green-bg);
+      color: var(--success-green);
+      border: 1px solid #C8E6C9;
+    }
+
+    svg {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-section">
+        <div class="logo-icon">📊</div>
+        <div class="logo-text">Macedonia</div>
+      </div>
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="index.html">Sign In</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="body">
+      <div class="register-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <line x1="20" y1="8" x2="20" y2="14"/>
+              <line x1="23" y1="11" x2="17" y2="11"/>
+            </svg>
+          </div>
+          <h1 class="title">Open an Macedonia account</h1>
+          <p class="subtitle">Join Macedonia and explore oil-product packages</p>
+        </div>
+
+        <!-- Register Card -->
+        <div class="card">
+          <div id="refBox" class="ref-box" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Referred by: <span id="refName">a friend</span></span>
+          </div>
+
+          <div id="alertBox" class="alert">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="alertMessage"></span>
+          </div>
+
+          <form id="registerForm">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="fullName" class="form-input" placeholder="Your full name" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="phone" class="form-input" placeholder="080XXXXXXXX" autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="password-wrapper">
+                <input type="password" id="password" class="form-input" placeholder="Min. 6 characters" autocomplete="new-password">
+                <button type="button" class="toggle-password" onclick="togglePassword()">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Referral Code <span class="optional">(optional)</span></label>
+              <input type="text" id="refCode" class="form-input uppercase" placeholder="ENTER CODE">
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="regBtn">Open an Macedonia account</button>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <p class="footer-text">
+          Already have an account? <a href="index.html">Access Account</a>
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+    }
+
+    (function(){
+      function cleanMsg(msg){
+        if(!msg) return null;
+        var s=String(msg).trim();
+        if(s==="{}"||s==="[]"||s==="[object Object]"||s==="undefined") return null;
+        try { var p=JSON.parse(s); if(p&&p.message) return p.message; } catch(e){}
+        return s;
+      }
+      function showAlert(msg,type){
+        var el=document.getElementById("alertBox");
+        var span=document.getElementById("alertMessage");
+        var clean=cleanMsg(msg)||(type==="success"?"Success!":"Something went wrong. Please check your setup and try again.");
+        span.textContent=clean;
+        el.className="alert show "+(type==="success"?"alert-success":"alert-error");
+      }
+      function hideAlert(){
+        document.getElementById("alertBox").className="alert";
+      }
+
+      var urlRef=new URLSearchParams(location.search).get("ref");
+      if(urlRef){ document.getElementById("refCode").value=urlRef.toUpperCase(); document.getElementById("refBox").style.display="flex"; }
+      document.getElementById("refCode").addEventListener("input", function(){ this.value=this.value.toUpperCase(); });
+
+      document.getElementById("registerForm").addEventListener("submit", async function(event){
+        event.preventDefault();
+        var btn=document.getElementById("regBtn");
+        var name=document.getElementById("fullName").value.trim();
+        var email=document.getElementById("email").value.trim();
+        var phone=document.getElementById("phone").value.trim();
+        var pass=document.getElementById("password").value;
+        var ref=document.getElementById("refCode").value.trim().toUpperCase();
+        hideAlert();
+
+        if(!name||!email||!phone||!pass){ showAlert("Please fill in all required fields.","error"); return; }
+        if(pass.length<6){ showAlert("Password must be at least 6 characters.","error"); return; }
+        if(!window.sb){ showAlert("Connection error. Please refresh and try again.","error"); return; }
+
+        btn.disabled=true; btn.textContent="Creating account…";
+
+        try {
+          if(ref){
+            var {data:refProfile}=await window.sb.from("profiles").select("id,full_name").eq("referral_code",ref).single();
+            if(refProfile){ document.getElementById("refName").textContent=refProfile.full_name||"a friend"; document.getElementById("refBox").style.display="flex"; }
+          }
+
+          // full_name/phone/referral_code passed as signup metadata — the
+          // server-side trigger reads this, avoiding the RLS-blocks-anonymous-
+          // write problem that happens with a separate post-signup client call.
+          var {data,error}=await window.sb.auth.signUp({
+            email, password:pass,
+            options: { data: { full_name:name, phone:phone, referral_code: ref||null } }
+          });
+
+          if(error){ showAlert(error.message||"Registration failed. Try again.","error"); btn.disabled=false; btn.textContent="Open an Macedonia account"; return; }
+
+          if(!data?.session){
+            showAlert("✅ Account created! Check your email for a confirmation link, then sign in.","success");
+            btn.disabled=false; btn.textContent="Open an Macedonia account"; return;
+          }
+
+          showAlert("✅ Account created! Signing you in…","success");
+          var {error:loginErr}=await window.sb.auth.signInWithPassword({email,password:pass});
+          if(loginErr){ showAlert("Account created! Please sign in manually.","success"); setTimeout(function(){location.href="/index.html";},1500); return; }
+          setTimeout(function(){ location.href="/dashboard.html"; }, 1000);
+
+        } catch(e){
+          console.error("Registration error:", e);
+          showAlert(cleanMsg(e?.message)||"Registration failed. Please check your Supabase setup and try again.","error");
+          btn.disabled=false; btn.textContent="Open an Macedonia account";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

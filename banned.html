@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Account Suspended</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --red:#C81E3A; --red-dark:#8F1128;
+      --gold:#D4AF37; --gold-light:#F0D584;
+      --paper:#FFFFFF; --bg:#F5F1E8;
+      --ink:#1B1A22; --ink-soft:#4A4750; --muted:#8B8680;
+      --border:rgba(27,26,34,0.07);
+      --shadow-lg:0 20px 60px rgba(27,26,34,0.14);
+      --radius-lg:28px; --radius-xl:32px;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+      background:var(--bg);
+      background-image:
+        radial-gradient(circle at 100% 0%, rgba(212,175,55,0.10) 0%, transparent 45%),
+        radial-gradient(circle at 0% 30%, rgba(200,30,58,0.06) 0%, transparent 40%);
+      font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+      color:var(--ink); -webkit-font-smoothing:antialiased;
+    }
+    a{text-decoration:none;color:inherit;}
+    .card{
+      width:100%;max-width:400px;background:var(--paper);border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-lg);overflow:hidden;
+    }
+    .hero{
+      position:relative;overflow:hidden;padding:34px 26px 26px;text-align:center;color:#fff;
+      background:
+        radial-gradient(circle at 85% -10%, rgba(255,255,255,0.18) 0%, transparent 55%),
+        linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+    }
+    .hero::before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.08);top:-70px;right:-50px;}
+    .hero-icon{font-size:38px;position:relative;z-index:1;}
+    .hero-title{font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin-top:10px;position:relative;z-index:1;letter-spacing:-.01em;}
+    .hero-sub{font-size:13px;opacity:.88;margin-top:8px;line-height:1.55;position:relative;z-index:1;}
+    .body{padding:24px 26px 26px;}
+    .body p{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin:0 0 18px;}
+    .link{
+      display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;
+      background:var(--bg);border:1px solid var(--border);margin-bottom:12px;
+      transition:transform .16s var(--ease);
+    }
+    .link:active{transform:scale(.97);}
+    .link .li{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:#fff;}
+    .link.tg .li{background:linear-gradient(135deg,#3AA9E0,#1E8DC8);}
+    .link.wa .li{background:linear-gradient(135deg,#2BC15E,#1FA24C);}
+    .link .lt strong{display:block;font-size:14px;font-weight:700;color:var(--ink);}
+    .link .lt span{font-size:11.5px;color:var(--muted);font-weight:500;}
+    .link .lg{margin-left:auto;font-size:16px;color:var(--muted);}
+    .back-btn{
+      display:block;text-align:center;margin-top:6px;padding:13px;border-radius:14px;
+      background:var(--ink);color:#fff;font-weight:700;font-size:13.5px;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body>
+  <div class="card">
+    <div class="hero">
+      <div class="hero-icon">🚫</div>
+      <div class="hero-title">Account Suspended</div>
+      <div class="hero-sub">Your Macedonia account has been suspended by an administrator and you've been signed out.</div>
+    </div>
+    <div class="body">
+      <p>If you believe this is a mistake, reach out to our support team on Telegram — an admin will review your account.</p>
+      <a class="link tg" href="https://t.me/Macedoniaservice" target="_blank" rel="noopener">
+        <span class="li">✈️</span>
+        <span class="lt"><strong>Telegram Support</strong><span>Macedonia support</span></span>
+        <span class="lg">›</span>
+      </a>
+      <a class="link wa" href="https://chat.whatsapp.com/Fr9g6gu6NFrLdz92RPrF0f?s=cl&p=a&ilr=1" target="_blank" rel="noopener">
+        <span class="li">💬</span>
+        <span class="lt"><strong>WhatsApp Group</strong><span>Community &amp; help</span></span>
+        <span class="lg">›</span>
+      </a>
+      <a class="back-btn" href="/index.html">Return to Login</a>
+    </div>
+  </div>
+</body>
+</html>

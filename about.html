@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    :root{
+      --primary-pink:        #EC4899;
+      --primary-purple:      #9333EA;
+      --pink-light:          #FCE7F3;
+      --text-dark:           #212121;
+      --white:               #FFFFFF;
+      --background-light:    #F5F5F5;
+      --text-muted:          #757575;
+      --border-light:        #E0E0E0;
+      --success-green:       #4CAF50;
+      --success-green-bg:    #E8F5E9;
+      --shadow-sm:0 2px 10px rgba(0,0,0,0.05);
+      --shadow-md:0 10px 30px rgba(0,0,0,0.08);
+    }
+    svg{stroke-linecap:round;stroke-linejoin:round;display:block;}
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .ab-hero{
+      position:relative;overflow:hidden;text-align:center;color:#fff;padding:40px 24px 52px;
+      background:
+        radial-gradient(circle at 88% -10%, rgba(255,255,255,0.20) 0%, transparent 50%),
+        radial-gradient(circle at -10% 115%, rgba(255,255,255,0.12) 0%, transparent 50%),
+        linear-gradient(155deg,var(--primary-pink) 0%,var(--primary-purple) 100%);
+    }
+    .ab-hero::before,.ab-hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,0.08);}
+    .ab-hero::before{width:200px;height:200px;top:-90px;right:-50px;}
+    .ab-hero::after{width:140px;height:140px;bottom:-60px;left:-40px;}
+    .ab-hero>*{position:relative;z-index:1;}
+    .ab-seal{
+      width:68px;height:68px;border-radius:50%;background:#fff;color:var(--primary-purple);
+      display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:28px;font-weight:700;
+      margin:0 auto 14px;border:3px solid rgba(255,255,255,.5);box-shadow:var(--shadow-md);
+    }
+    .ab-brand{font-family:'Fraunces',serif;font-size:23px;font-weight:700;letter-spacing:-.01em;}
+    .ab-tag{font-size:13px;opacity:.85;margin-top:6px;}
+
+    /* ============================================================
+       CONTENT WRAPPER
+       ============================================================ */
+    .ab-wrap{padding:16px;}
+    .ab-eyebrow{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.09em;margin:22px 4px 10px;}
+    .ab-eyebrow:first-child{margin-top:4px;}
+
+    .ab-card{background:var(--white);border-radius:16px;box-shadow:var(--shadow-sm);border:1px solid var(--border-light);margin-bottom:12px;overflow:hidden;}
+    .ab-card-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border-light);font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--text-dark);}
+    .ab-card-head svg{width:17px;height:17px;stroke:var(--primary-pink);stroke-width:2;fill:none;flex-shrink:0;}
+    .ab-card-body{padding:14px 16px;font-size:13px;color:var(--text-muted);line-height:1.65;}
+
+    /* Feature list */
+    .ab-feature{background:var(--white);border-radius:16px;box-shadow:var(--shadow-sm);border:1px solid var(--border-light);overflow:hidden;margin-bottom:12px;}
+    .ab-feature-row{display:flex;align-items:flex-start;gap:12px;padding:15px 16px;border-bottom:1px solid var(--border-light);}
+    .ab-feature-row:last-child{border-bottom:none;}
+    .ab-feature-ic{width:36px;height:36px;border-radius:10px;background:var(--pink-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .ab-feature-ic svg{width:17px;height:17px;stroke:var(--primary-purple);stroke-width:2;fill:none;}
+    .ab-feature-txt strong{display:block;font-size:13.5px;font-weight:700;color:var(--text-dark);margin-bottom:2px;}
+    .ab-feature-txt span{font-size:12px;color:var(--text-muted);line-height:1.5;}
+
+    /* Community links */
+    .ab-link{
+      display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;
+      background:var(--white);border:1px solid var(--border-light);margin-bottom:10px;
+      box-shadow:var(--shadow-sm);
+    }
+    .ab-link:last-child{margin-bottom:0;}
+    .ab-link-ic{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;}
+    .ab-link.tg .ab-link-ic{background:linear-gradient(135deg,#3AA9E0,#1E8DC8);}
+    .ab-link.wa .ab-link-ic{background:linear-gradient(135deg,#2BC15E,#1FA24C);}
+    .ab-link.ct .ab-link-ic{background:linear-gradient(135deg,var(--primary-pink),var(--primary-purple));}
+    .ab-link-ic svg{width:19px;height:19px;stroke:currentColor;stroke-width:2;fill:none;}
+    .ab-link-txt{flex:1;}
+    .ab-link-txt strong{display:block;font-size:14px;font-weight:700;color:var(--text-dark);}
+    .ab-link-txt span{font-size:11.5px;color:var(--text-muted);}
+    .ab-link-go{font-size:17px;color:var(--border-light);}
+
+    .ab-foot{text-align:center;font-size:11.5px;color:var(--text-muted);padding:18px 16px 8px;}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body>
+<div class="page-wrap">
+  <div class="topbar"><a class="back-btn" href="profile.html">‹</a><span class="topbar-title">About Macedonia</span></div>
+
+  <div class="ab-hero">
+    <div class="ab-seal">A</div>
+    <div class="ab-brand">Macedonia</div>
+    <div class="ab-tag">Energy to move you forward.</div>
+  </div>
+
+  <div class="ab-wrap">
+
+    <div class="ab-eyebrow">Overview</div>
+    <div class="ab-card">
+      <div class="ab-card-head"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Who We Are</div>
+      <div class="ab-card-body">Macedonia is an oil-product investment platform for people seeking a straightforward way to explore energy opportunities. Fund your wallet, choose an oil package, and follow the existing process in one place.</div>
+    </div>
+    <div class="ab-card">
+      <div class="ab-card-head"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>How It Works</div>
+      <div class="ab-card-body">Fund your wallet, choose an oil-product package, and track the package through the existing platform flow. Referral rewards continue to follow the active referral structure already configured in the system.</div>
+    </div>
+
+    <div class="ab-eyebrow">Why Macedonia Packages</div>
+    <div class="ab-feature">
+      <div class="ab-feature-row">
+        <div class="ab-feature-ic"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+        <div class="ab-feature-txt"><strong>Oil Product Packages</strong><span>Explore oil-product packages through the existing product records and package terms configured in the platform.</span></div>
+      </div>
+      <div class="ab-feature-row">
+        <div class="ab-feature-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <div class="ab-feature-txt"><strong>Tiered Oil Packages</strong><span>Unlock higher package tiers through the same active-referral rules and product records already configured in the platform.</span></div>
+      </div>
+      <div class="ab-feature-row">
+        <div class="ab-feature-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="ab-feature-txt"><strong>Referral Rewards</strong><span>Share your code and receive the referral rewards configured for qualifying package activity.</span></div>
+      </div>
+      <div class="ab-feature-row">
+        <div class="ab-feature-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="ab-feature-txt"><strong>Secure Wallet &amp; Transparent Records</strong><span>Every deposit, withdrawal, and package activity is recorded in your transaction history, so your balance and records remain traceable.</span></div>
+      </div>
+    </div>
+
+    <div class="ab-eyebrow">Our Package Approach</div>
+    <div class="ab-card">
+      <div class="ab-card-head"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Security &amp; Fair Play</div>
+      <div class="ab-card-body">Deposits and withdrawals continue through the existing admin-review flow before funds move. Referral rewards remain tied to qualifying package activity, and account status rules remain enforced consistently across the platform.</div>
+    </div>
+
+    <div class="ab-eyebrow">Get In Touch</div>
+    <a class="ab-link tg" href="https://t.me/Macedonia32" target="_blank" rel="noopener">
+      <div class="ab-link-ic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
+      <div class="ab-link-txt"><strong>Telegram Support</strong><span>Macedonia support — direct help from our team</span></div>
+      <div class="ab-link-go">›</div>
+    </a>
+    <a class="ab-link wa" href="https://chat.whatsapp.com/Fr9g6gu6NFrLdz92RPrF0f?s=cl&p=a&ilr=1" target="_blank" rel="noopener">
+      <div class="ab-link-ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      <div class="ab-link-txt"><strong>WhatsApp Community</strong><span>Chat with other Macedonia members</span></div>
+      <div class="ab-link-go">›</div>
+    </a>
+    <a class="ab-link ct" href="contact.html">
+      <div class="ab-link-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <div class="ab-link-txt"><strong>Contact Support</strong><span>Reach us directly through the app</span></div>
+      <div class="ab-link-go">›</div>
+    </a>
+
+    <div class="ab-foot">Macedonia — Energy to move you forward.</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Daily Energy Brief</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    :root{
+      --primary-pink:        #EC4899;
+      --primary-purple:      #9333EA;
+      --pink-light:          #FCE7F3;
+      --text-dark:           #212121;
+      --white:               #FFFFFF;
+      --background-light:    #F5F5F5;
+      --text-muted:          #757575;
+      --border-light:        #E0E0E0;
+      --success-green:       #4CAF50;
+      --shadow-sm:0 2px 10px rgba(0,0,0,0.05);
+    }
+    svg{stroke-linecap:round;stroke-linejoin:round;display:block;}
+
+    .checkin-card { background:linear-gradient(155deg,var(--primary-pink),var(--primary-purple)); border-radius:24px; margin:16px; padding:32px 24px; text-align:center; color:#fff; box-shadow:0 8px 32px rgba(236,72,153,.32); }
+    .checkin-icon { width:56px;height:56px;margin:0 auto 12px; }
+    .checkin-icon svg{width:100%;height:100%;stroke:#fff;stroke-width:1.5;fill:none;}
+    .checkin-amount { font-family:'Fraunces',serif; font-size:44px; font-weight:600; }
+    .checkin-label { font-size:14px; opacity:.85; margin-top:4px; }
+    .checkin-btn { display:flex;align-items:center;justify-content:center;gap:8px; background:#fff; color:var(--primary-purple); border:none; padding:16px 48px; border-radius:50px; font-size:17px; font-weight:800; cursor:pointer; margin-top:24px; width:100%; }
+    .checkin-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.4;fill:none;}
+    .checkin-btn:disabled { opacity:.55; cursor:not-allowed; }
+    .streak-row { display:flex; gap:6px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+    .streak-day { width:34px; height:34px; border-radius:9px; border:2px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:rgba(255,255,255,.6); }
+    .streak-day svg{width:14px;height:14px;stroke:currentColor;stroke-width:3;fill:none;}
+    .streak-day.done { background:rgba(255,255,255,.25); color:#fff; border-color:transparent; }
+    .streak-day.today { background:#fff; color:var(--primary-purple); border-color:#fff; }
+
+    .ci-section{padding:0 16px;}
+    .ci-history-card{background:var(--white);border-radius:16px;box-shadow:var(--shadow-sm);border:1px solid var(--border-light);padding:16px;}
+    .ci-history-title{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text-dark);}
+    .ci-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light);}
+    .ci-row:last-child{border-bottom:none;}
+    .ci-row-date{font-size:13px;color:var(--text-dark);}
+    .ci-row-amt{font-size:13px;font-weight:700;color:var(--success-green);}
+    .ci-loader-wrap{display:flex;justify-content:center;padding:20px 0;}
+    .ci-loader{width:24px;height:24px;border-radius:50%;border:3px solid var(--border-light);border-top-color:var(--primary-pink);animation:cispin .8s linear infinite;}
+    @keyframes cispin{to{transform:rotate(360deg);}}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<div class="page-wrap">
+  <div class="topbar">
+    <a class="back-btn" href="profile.html">‹</a>
+    <span class="topbar-title" style="display:flex;align-items:center;gap:8px">
+      <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--primary-pink);stroke-width:2;fill:none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Daily Energy Brief
+    </span>
+  </div>
+  <div class="checkin-card">
+    <div class="checkin-icon" id="checkinIcon"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+    <div class="checkin-amount" id="checkinAmount">₦50</div>
+    <div class="checkin-label">Daily refinery briefing bonus — check in each day!</div>
+    <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">Claim ₦50 Bonus</button>
+    <div class="streak-row" id="streakRow"></div>
+  </div>
+  <div class="ci-section">
+    <div class="ci-history-card">
+      <h3 class="ci-history-title">Recent Check-Ins</h3>
+      <div id="checkinHistory"><div class="ci-loader-wrap"><div class="ci-loader"></div></div></div>
+    </div>
+  </div>
+  <div style="height:16px"></div>
+</div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script>
+(function(){
+  var uid="";
+  var GIFT_ICON='<svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>';
+  var CHECK_ICON='<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+  var CHECK_SMALL='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+  var dailyAmount=50;
+
+  function money(amount){ return window.MacedoniaAuth.money(Number(amount||0)); }
+  function setDailyAmount(amount){
+    dailyAmount=Number(amount||50);
+    document.getElementById("checkinAmount").textContent=money(dailyAmount);
+    if(!document.getElementById("checkinBtn").disabled) document.getElementById("checkinBtn").textContent="Claim "+money(dailyAmount)+" Bonus";
+  }
+  async function loadHistory(){
+    var {data:hist}=await window.sb.from("daily_checkins").select("date,amount").eq("user_id",uid).order("date",{ascending:false}).limit(30);
+    var claimedDates=new Set((hist||[]).map(function(x){return x.date;}));
+    var streakEl=document.getElementById("streakRow");
+    streakEl.innerHTML="";
+    var days=["Su","Mo","Tu","We","Th","Fr","Sa"];
+    for(var i=6;i>=0;i--){
+      var dt=new Date(); dt.setDate(dt.getDate()-i);
+      var ds=dt.toISOString().slice(0,10);
+      var isToday=i===0, done=claimedDates.has(ds);
+      var div=document.createElement("div");
+      div.className="streak-day"+(isToday?" today":done?" done":"");
+      div.innerHTML=(done||isToday)?CHECK_SMALL:days[dt.getDay()];
+      streakEl.appendChild(div);
+    }
+    var histEl=document.getElementById("checkinHistory");
+    if(!hist||!hist.length){ histEl.innerHTML='<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:12px">No check-ins yet.</div>'; }
+    else { histEl.innerHTML=hist.slice(0,7).map(function(c){ return '<div class="ci-row"><span class="ci-row-date">'+new Date(c.date).toDateString()+'</span><span class="ci-row-amt">+'+money(c.amount)+'</span></div>'; }).join(""); }
+  }
+
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return;
+    uid=s.user.id;
+    var r=await fetch("/api/bonus?action=checkin-status&user_id="+uid);
+    var d=await r.json();
+    setDailyAmount(d.amount);
+    var btn=document.getElementById("checkinBtn");
+    if(d.claimed){ btn.innerHTML=CHECK_SMALL+' Already Claimed Today'; btn.disabled=true; document.getElementById("checkinIcon").innerHTML=CHECK_ICON; }
+    await loadHistory();
+  });
+  window.doCheckin=async function(){
+    var btn=document.getElementById("checkinBtn"); btn.disabled=true; btn.textContent="Claiming…";
+    var r=await fetch("/api/bonus?action=daily-checkin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user_id:uid})});
+    var d=await r.json();
+    if(d.ok){ setDailyAmount(d.amount); window.MacedoniaAuth.toast("Claimed "+money(d.amount)+" daily bonus!"); btn.innerHTML=CHECK_SMALL+' Claimed!'; document.getElementById("checkinIcon").innerHTML=CHECK_ICON; await loadHistory(); }
+    else { window.MacedoniaAuth.toast(d.error==="already_claimed"?"Already claimed today!":d.error==="daily_bonus_disabled"?"Daily bonus is not currently available.":d.error||"Error"); btn.disabled=false; btn.textContent="Claim "+money(dailyAmount)+" Bonus"; }
+  };
+})();
+</script>
+</body>
+</html>

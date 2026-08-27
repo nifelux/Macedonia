@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    /* ============================================================
+       SCHWEPPES DESIGN TOKENS — premium blue & white palette
+       ============================================================ */
+    :root{
+      --primary-blue:        #9333EA;
+      --primary-blue-dark:   #6B21A8;
+      --primary-blue-light:  #F3E8FF;
+      --accent-pink:         #EC4899;
+      --accent-pink-dark:    #BE185D;
+      --accent-pink-light:   #FDF2F8;
+      --gold:                #D4AF37;
+      --gold-dark:           #B8860B;
+      --text-dark:           #1F1533;
+      --white:               #FFFFFF;
+      --background-light:    #FAF7FC;
+      --text-muted:          #8B7D99;
+      --border-light:        #EDE4F5;
+      --success-green:       #10B981;
+      --success-green-bg:    #ECFDF5;
+      --warning-orange:      #FF9800;
+      --warning-orange-bg:   #FFF3E0;
+      --danger-red:          #EF4444;
+      --danger-red-bg:       #FEF2F2;
+
+      --shadow-sm:0 2px 10px rgba(31,21,51,0.06);
+      --shadow-md:0 10px 30px rgba(31,21,51,0.10);
+      --shadow-lg:0 20px 60px rgba(31,21,51,0.18);
+      --shadow-blue:0 16px 40px rgba(147,51,234,0.32);
+
+      --radius-sm:14px;
+      --radius-md:20px;
+      --radius-lg:28px;
+      --radius-xl:32px;
+
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+
+    *{box-sizing:border-box;}
+    html{-webkit-text-size-adjust:100%;}
+    body{
+      margin:0;
+      background:var(--background-light);
+      background-image:
+        radial-gradient(circle at 100% 0%, rgba(147,51,234,0.10) 0%, transparent 45%),
+        radial-gradient(circle at 0% 30%, rgba(236,72,153,0.07) 0%, transparent 40%);
+      background-attachment:fixed;
+      font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+      color:var(--text-dark);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    .page-wrap{max-width:520px;margin:0 auto;padding-bottom:110px;position:relative;}
+    a{text-decoration:none;color:inherit;}
+    button{font-family:inherit;border:none;background:none;cursor:pointer;}
+    svg{stroke-linecap:round;stroke-linejoin:round;display:block;}
+
+    /* ============ reveal-on-load utility (paired with enhancement script) ============ */
+    .anim{opacity:0;transform:translateY(18px);}
+    .anim.in{animation:riseIn .7s var(--ease) forwards;}
+    @keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+    @media (prefers-reduced-motion: reduce){
+      .anim{opacity:1;transform:none;animation:none;}
+      *{scroll-behavior:auto !important;}
+    }
+
+    /* ============================================================
+       1. STICKY GLASS HEADER
+       ============================================================ */
+    .app-header{
+      position:sticky;top:0;z-index:50;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 20px;
+      background:rgba(255,255,255,0.72);
+      backdrop-filter:blur(20px) saturate(160%);
+      -webkit-backdrop-filter:blur(20px) saturate(160%);
+      border-bottom:1px solid var(--border-light);
+    }
+    .greeting-eyebrow{
+      font-size:11.5px;letter-spacing:.04em;color:var(--text-muted);font-weight:600;
+      text-transform:uppercase;
+    }
+    .greeting-name{
+      font-family:'Fraunces',serif;font-size:19px;font-weight:600;color:var(--text-dark);
+      margin-top:2px;letter-spacing:-.01em;
+    }
+    .header-actions{display:flex;align-items:center;gap:10px;}
+    .vip-badge{
+      font-size:11px;font-weight:700;letter-spacing:.03em;padding:6px 12px;border-radius:999px;
+      background:linear-gradient(135deg,#F5D67B,var(--gold) 55%,var(--gold-dark));
+      color:#3D2B00;box-shadow:0 4px 14px rgba(212,175,55,0.45);
+    }
+    .notif-btn{
+      width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+      background:var(--white);box-shadow:var(--shadow-sm);position:relative;
+      transition:transform .18s var(--ease);
+    }
+    .notif-btn svg{width:19px;height:19px;stroke:var(--text-dark);stroke-width:2;fill:none;}
+    .notif-btn:active{transform:scale(.9);}
+    #notifBadge{
+      display:none;position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;padding:0 3px;
+      border-radius:999px;background:var(--danger-red);color:#fff;font-size:9.5px;font-weight:700;
+      align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(239,68,68,0.5);
+    }
+
+    /* ============================================================
+       2. HERO WALLET CARD
+       ============================================================ */
+    .hero-section{padding:18px 16px 6px;}
+    .hero-card{
+      position:relative;overflow:hidden;
+      border-radius:var(--radius-xl);
+      padding:30px 26px 26px;
+      background:
+        radial-gradient(circle at 85% -10%, rgba(212,175,55,0.20) 0%, transparent 55%),
+        radial-gradient(circle at -10% 110%, rgba(236,72,153,0.45) 0%, transparent 50%),
+        linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 55%, var(--accent-pink-dark) 100%);
+      box-shadow:var(--shadow-blue);
+      color:var(--white);
+    }
+    .hero-card::before,.hero-card::after{
+      content:"";position:absolute;border-radius:50%;
+      background:rgba(255,255,255,0.08);
+    }
+    .hero-card::before{width:220px;height:220px;top:-90px;right:-60px;}
+    .hero-card::after{width:150px;height:150px;bottom:-70px;left:-40px;background:rgba(236,72,153,0.22);}
+    .hero-inner{position:relative;z-index:1;}
+    .hero-label{
+      font-size:12.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+      opacity:.82;display:flex;align-items:center;gap:6px;
+    }
+    .hero-amount{
+      font-family:'Fraunces',serif;font-weight:700;font-size:40px;letter-spacing:-.02em;
+      margin:8px 0 14px;line-height:1;
+      text-shadow:0 4px 20px rgba(0,0,0,0.15);
+    }
+    .hero-meta{display:flex;align-items:center;gap:8px;font-size:12.5px;opacity:.85;flex-wrap:wrap;}
+    .hero-meta b{font-weight:700;letter-spacing:.02em;}
+    .hero-divider{width:1px;height:12px;background:rgba(255,255,255,0.35);}
+    .hero-actions{display:flex;gap:10px;margin-top:22px;}
+    .hero-btn{
+      flex:1;padding:14px 0;border-radius:16px;font-weight:700;font-size:14.5px;
+      display:flex;align-items:center;justify-content:center;gap:6px;
+      transition:transform .16s var(--ease),box-shadow .16s var(--ease);
+      position:relative;overflow:hidden;
+    }
+    .hero-btn:active{transform:scale(.96);}
+    .hero-btn.fill{background:var(--white);color:var(--primary-blue-dark);box-shadow:0 8px 22px rgba(0,0,0,0.18);}
+    .hero-btn.ghost{background:rgba(255,255,255,0.14);color:var(--white);border:1.5px solid rgba(255,255,255,0.5);backdrop-filter:blur(6px);}
+
+    /* ============================================================
+       3. STATISTICS SECTION
+       ============================================================ */
+    .section{padding:22px 16px 4px;}
+    .stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+    .stat-box{
+      background:var(--white);border-radius:var(--radius-md);padding:18px 16px;
+      box-shadow:var(--shadow-sm);border:1px solid var(--border-light);
+      transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+      position:relative;overflow:hidden;
+    }
+    .stat-box:active{transform:translateY(-2px) scale(.99);box-shadow:var(--shadow-md);}
+    .stat-box .stat-ic{
+      width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+      margin-bottom:12px;
+    }
+    .stat-ic svg{width:17px;height:17px;stroke-width:2;fill:none;}
+    .stat-box[data-tone="deposit"] .stat-ic{background:var(--primary-blue-light);}
+    .stat-box[data-tone="deposit"] .stat-ic svg{stroke:var(--primary-blue-dark);}
+    .stat-box[data-tone="profit"] .stat-ic{background:var(--success-green-bg);}
+    .stat-box[data-tone="profit"] .stat-ic svg{stroke:var(--success-green);}
+    .stat-val{
+      font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--text-dark);letter-spacing:-.01em;
+    }
+    .stat-lbl{font-size:12px;color:var(--text-muted);font-weight:600;margin-top:3px;}
+
+    /* ============================================================
+       4. QUICK ACTIONS
+       ============================================================ */
+    .sec-row{display:flex;align-items:center;justify-content:space-between;padding:0 4px;margin-bottom:14px;}
+    .sec-row h2{font-family:'Fraunces',serif;font-size:17.5px;font-weight:600;letter-spacing:-.01em;}
+    .sec-row a{font-size:13px;color:var(--primary-blue);font-weight:700;}
+
+    .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 16px;margin-bottom:8px;}
+    .quick-item{
+      display:flex;flex-direction:column;align-items:center;gap:9px;padding:16px 6px 14px;
+      border-radius:var(--radius-md);background:var(--white);box-shadow:var(--shadow-sm);
+      border:1px solid var(--border-light);
+      cursor:pointer;font-size:11px;font-weight:700;color:var(--text-muted);
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+      position:relative;overflow:hidden;
+    }
+    .quick-item:active{transform:scale(.94);}
+    .quick-item-icon{
+      width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--primary-blue-light),var(--white));
+      box-shadow:inset 0 0 0 1px var(--border-light);
+    }
+    .quick-item-icon svg{width:19px;height:19px;stroke:var(--primary-blue-dark);stroke-width:2;fill:none;}
+    .quick-grid a:nth-child(1) .quick-item-icon{background:linear-gradient(135deg,#F3E8FF,#D8B4FE);}
+    .quick-grid a:nth-child(2) .quick-item-icon{background:linear-gradient(135deg,#FDF2F8,#FBCFE8);}
+    .quick-grid a:nth-child(3) .quick-item-icon{background:linear-gradient(135deg,#EDE9FE,#C4B5FD);}
+    .quick-grid a:nth-child(4) .quick-item-icon{background:linear-gradient(135deg,#FCE7F3,#F9A8D4);}
+    .quick-grid a:nth-child(5) .quick-item-icon{background:linear-gradient(135deg,#F3E8FF,#D8B4FE);}
+    .quick-grid a:nth-child(6) .quick-item-icon{background:linear-gradient(135deg,#FDF2F8,#FBCFE8);}
+    .quick-grid a:nth-child(7) .quick-item-icon{background:linear-gradient(135deg,#EDE9FE,#C4B5FD);}
+    .quick-grid a:nth-child(8) .quick-item-icon{background:linear-gradient(135deg,#FCE7F3,#F9A8D4);}
+
+    /* ripple (added purely via ::after + JS toggling a class, no markup change needed) */
+    .ripple-el{position:absolute;border-radius:50%;background:rgba(147,51,234,0.18);
+      transform:scale(0);animation:rippleAnim .55s var(--ease);pointer-events:none;}
+    @keyframes rippleAnim{to{transform:scale(2.6);opacity:0;}}
+
+    /* ============================================================
+       6. INCOME BANNER
+       ============================================================ */
+    .income-strip{
+      position:relative;overflow:hidden;
+      background:linear-gradient(120deg,#3B0764 0%,#7C3AED 55%,#DB2777 100%);
+      border-radius:var(--radius-lg);margin:6px 16px 20px;padding:20px 20px;
+      display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-md);
+    }
+    .income-strip::before{
+      content:"";position:absolute;width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle,rgba(212,175,55,0.30),transparent 70%);
+      top:-60px;right:-40px;
+    }
+    .income-strip .ic{
+      width:46px;height:46px;border-radius:14px;flex-shrink:0;
+      background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;
+      position:relative;z-index:1;backdrop-filter:blur(4px);
+    }
+    .income-strip .ic svg{width:22px;height:22px;stroke:#fff;stroke-width:2;fill:none;}
+    .income-strip .txt{position:relative;z-index:1;}
+    .income-strip .txt strong{display:block;font-size:13.5px;font-weight:700;color:var(--white);}
+    .income-strip .txt span{font-size:11.5px;color:#F3D9F5;opacity:.85;line-height:1.4;}
+
+    /* ============================================================
+       7. PROMOTION BANNER
+       ============================================================ */
+    .promo-banner{
+      margin:0 16px 22px;border-radius:var(--radius-lg);padding:22px 22px;position:relative;overflow:hidden;
+      background:linear-gradient(135deg,var(--accent-pink) 0%, var(--primary-blue-dark) 100%);
+      box-shadow:0 14px 34px rgba(190,24,93,0.32);
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .promo-banner::before{
+      content:"✦";position:absolute;font-size:110px;right:-10px;bottom:-40px;color:rgba(255,255,255,0.16);
+      font-family:'Fraunces',serif;
+    }
+    .promo-text{position:relative;z-index:1;}
+    .promo-text .pt-title{font-family:'Fraunces',serif;font-weight:700;font-size:17px;color:var(--white);}
+    .promo-text .pt-sub{font-size:12.5px;color:#FCE7F3;margin-top:3px;font-weight:600;}
+    .promo-btn{
+      position:relative;z-index:1;flex-shrink:0;background:linear-gradient(135deg,#F5D67B,var(--gold) 60%,var(--gold-dark));color:#3D2B00;font-weight:700;font-size:13px;
+      padding:12px 18px;border-radius:14px;box-shadow:0 8px 20px rgba(212,175,55,0.4);
+      transition:transform .16s var(--ease);
+    }
+    .promo-btn:active{transform:scale(.94);}
+
+    /* ============================================================
+       5. INVESTMENT SECTION  (markup produced by original JS — classes kept identical)
+       ============================================================ */
+    .mini-product{
+      background:var(--white);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);
+      border:1px solid var(--border-light);
+      padding:16px 18px;margin:0 16px 12px;display:flex;align-items:center;justify-content:space-between;
+      transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+      position:relative;
+    }
+    .mini-product:active{transform:scale(.98);}
+    .mp-name{font-size:14.5px;font-weight:700;color:var(--text-dark);letter-spacing:-.005em;}
+    .mp-prog{font-size:11.5px;color:var(--text-muted);margin-top:3px;font-weight:600;}
+    .mp-earn{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--success-green);}
+    .prog-bar{height:6px;background:var(--background-light);border-radius:6px;margin-top:8px;overflow:hidden;width:130px;box-shadow:inset 0 0 0 1px var(--border-light);}
+    .prog-fill{
+      height:100%;border-radius:6px;
+      background:linear-gradient(90deg,var(--primary-blue),var(--accent-pink-dark));
+      box-shadow:0 0 10px rgba(147,51,234,0.4);
+      transition:width 1s var(--ease);
+    }
+    /* status badge injected by enhancement script (data attribute only, no logic change) */
+    .mp-status{
+      position:absolute;top:-8px;right:14px;font-size:9.5px;font-weight:800;letter-spacing:.04em;
+      text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--success-green);color:var(--white);
+      box-shadow:0 4px 10px rgba(76,175,80,0.4);
+    }
+
+    .empty{padding:40px 20px;text-align:center;color:var(--text-muted);}
+    .empty-icon{width:34px;height:34px;margin:0 auto 10px;color:var(--border-light);}
+    .empty-icon svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.5;fill:none;}
+    .loader-wrap{display:flex;justify-content:center;padding:30px 0;}
+    .loader{
+      width:26px;height:26px;border-radius:50%;border:3px solid var(--border-light);
+      border-top-color:var(--primary-blue);animation:spin .8s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* ============================================================
+       8. RECENT TRANSACTIONS (markup produced by original JS)
+       ============================================================ */
+    .card{
+      background:transparent;margin:0 16px 20px;padding:0;
+    }
+    .list-item{
+      display:flex;align-items:center;justify-content:space-between;padding:14px 16px;
+      border-bottom:1px solid var(--border-light);background:var(--white);
+    }
+    .list-item:last-child{border-bottom:none;}
+    .li-title{font-size:14px;font-weight:600;color:var(--text-dark);}
+    .li-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
+    .li-amount{font-family:'Fraunces',serif;font-size:15px;font-weight:600;}
+    .li-amount.credit{color:var(--success-green);}
+    .li-amount.debit{color:var(--danger-red);}
+
+    /* ============================================================
+       9. BOTTOM NAVIGATION
+       Positioning, centering, and item styling all come from the
+       shared assets/css/styles.css .bottom-nav rule (left:50% +
+       transform:translateX(-50%) + max-width:480px). .nav-icon is
+       the one addition needed: the shared rule was written for
+       emoji icons (font-size), not SVGs.
+       ============================================================ */
+    .nav-icon{width:21px;height:21px;stroke:currentColor;stroke-width:2;fill:none;}
+    .nav-item.active{color:var(--primary-blue);}
+    /* The nav's left edge was sitting at screen-center instead of the bar
+       being centered around it — left:50% needs a matching -50% transform
+       to actually center a fixed element, and that half of the shared
+       rule wasn't taking effect. Patching only the missing property here. */
+    .bottom-nav{transform:translateX(-50%) !important;}
+
+    /* ============================================================
+       10. WELCOME POPUP
+       ============================================================ */
+    #welcomeOverlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+      z-index:1000;display:flex;align-items:center;justify-content:center;
+      opacity:0;pointer-events:none;transition:opacity .3s var(--ease);
+    }
+    #welcomeOverlay.show{opacity:1;pointer-events:auto;}
+    .welcome-card{
+      background:var(--white);border-radius:var(--radius-xl);width:calc(100% - 40px);
+      max-width:380px;overflow:hidden;box-shadow:var(--shadow-lg);
+      transform:scale(.9);opacity:0;transition:transform .3s var(--ease),opacity .3s var(--ease);
+    }
+    #welcomeOverlay.show .welcome-card{transform:scale(1);opacity:1;}
+    .welcome-hero{
+      background:linear-gradient(135deg,var(--primary-blue) 0%,var(--primary-blue-dark) 100%);
+      color:var(--white);padding:30px 20px 25px;text-align:center;position:relative;overflow:hidden;
+    }
+    .welcome-hero::before{
+      content:"";position:absolute;width:180px;height:180px;border-radius:50%;
+      background:rgba(255,255,255,0.1);
+      top:-70px;right:-50px;
+    }
+    .welcome-close{
+      position:absolute;top:15px;right:15px;width:30px;height:30px;border-radius:50%;
+      background:rgba(255,255,255,0.15);color:var(--white);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .welcome-close svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.4;fill:none;}
+    .welcome-icon{width:44px;height:44px;margin:0 auto 10px;position:relative;z-index:1;}
+    .welcome-icon svg{width:100%;height:100%;stroke:#fff;stroke-width:1.6;fill:none;}
+    .welcome-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:5px;position:relative;z-index:1;}
+    .welcome-sub{font-size:14px;opacity:.9;line-height:1.5;position:relative;z-index:1;}
+    .welcome-body{padding:20px;}
+    .welcome-link{
+      display:flex;align-items:center;gap:14px;padding:15px;border-radius:16px;
+      background:var(--background-light);margin-bottom:12px;transition:transform .15s var(--ease);
+    }
+    .welcome-link:active{transform:scale(.98);}
+    .welcome-link.tg .wl-icon{background:#F3E8FF;color:#9333EA;}
+    .welcome-link.wa .wl-icon{background:#FDF2F8;color:#DB2777;}
+    .wl-icon{
+      width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+    .wl-icon svg{width:21px;height:21px;stroke:currentColor;stroke-width:2;fill:none;}
+    .wl-txt{flex:1;}
+    .wl-txt strong{display:block;font-size:15px;font-weight:700;color:var(--text-dark);}
+    .wl-txt span{font-size:12px;color:var(--text-muted);margin-top:2px;}
+    .wl-go{font-size:20px;color:var(--text-muted);}
+    .welcome-skip{
+      width:100%;padding:14px;border-radius:16px;background:var(--border-light);
+      color:var(--text-muted);font-weight:700;font-size:14px;margin-top:8px;
+    }
+
+    /* ============================================================
+       11. TOAST NOTIFICATIONS
+       ============================================================ */
+    #toast{
+      position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
+      background:var(--text-dark);color:var(--white);padding:11px 20px;border-radius:30px;
+      font-size:13px;font-weight:600;z-index:200;opacity:0;pointer-events:none;
+      transition:opacity .25s;white-space:nowrap;box-shadow:var(--shadow-md);
+    }
+    #toast.show{opacity:1;}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body>
+<div class="page-wrap dashboard-page">
+  <header class="app-header">
+    <div class="greeting">
+      <div class="greeting-eyebrow" id="greetingEyebrow">Good morning</div>
+      <div class="greeting-name">Hello, <span data-auth="full_name">User</span></div>
+    </div>
+    <div class="header-actions">
+      <div class="vip-badge vip-0" data-vip>Member</div>
+      <button class="notif-btn anim anim-1" onclick="location.href='notifications.html'">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div id="notifBadge"></div>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero-section anim anim-2">
+    <div class="hero-card">
+      <div class="hero-inner">
+        <div class="hero-label">Capital Account</div>
+        <div class="hero-amount" id="walletBalance">₦0</div>
+        <div class="hero-meta">
+          <div>Last package credit: <b id="lastCredited">Not yet</b></div>
+          <div class="hero-divider"></div>
+          <div>Daily package credit: <b id="dailyIncomeTotal">₦0</b></div>
+        </div>
+        <div class="hero-actions">
+          <button class="hero-btn fill" onclick="location.href='recharge.html'">Fund Account</button>
+          <button class="hero-btn ghost" onclick="location.href='withdraw.html'">Request Payout</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anim anim-3">
+    <div class="stats-row">
+      <div class="stat-box" data-tone="deposit">
+        <div class="stat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
+        <div class="stat-val" id="statDeposit">₦0</div>
+        <div class="stat-lbl">Capital Funded</div>
+      </div>
+      <div class="stat-box" data-tone="profit">
+        <div class="stat-ic"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 17"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div class="stat-val" id="statProfit">₦0</div>
+        <div class="stat-lbl">Package Credits</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anim anim-4">
+    <div class="sec-row">
+      <h2>Account Centre</h2>
+    </div>
+    <div class="quick-grid">
+      <a href="recharge.html" class="quick-item action-fund">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
+        Fund Account
+      </a>
+      <a href="withdraw.html" class="quick-item action-payout">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg></div>
+        Request Payout
+      </a>
+      <a href="team.html" class="quick-item action-network">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        Network
+      </a>
+      <a href="my-investments.html" class="quick-item action-portfolio">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+        My Packages
+      </a>
+      <a href="products.html" class="quick-item action-packages">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        Explore Packages
+      </a>
+      <a href="daily-checkin.html" class="quick-item action-utility">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        Daily Brief
+      </a>
+      <a href="gift-code.html" class="quick-item action-utility">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+        Gift Code
+      </a>
+      <a href="profile.html" class="quick-item action-utility">
+        <div class="quick-item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        Account Settings
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-row">
+      <h2>Active Oil Packages</h2>
+      <a href="my-investments.html">View All</a>
+    </div>
+    <div id="activeProducts">
+      <div class="loader-wrap"><div class="loader"></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="income-strip">
+      <div class="ic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="txt">
+        <strong>Build your oil-package network.</strong>
+        <span>Share package information through your existing network.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="promo-banner">
+      <div class="promo-text">
+        <div class="pt-title">Oil Package Update</div>
+        <div class="pt-sub">Review available oil-product package activity.</div>
+      </div>
+      <button class="promo-btn" onclick="location.href='recharge.html'">Review Packages</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-row">
+      <h2>Recent Account Activity</h2>
+      <a href="recharge-history.html">View All</a>
+    </div>
+    <div class="card">
+      <div id="recentTx">
+        <div class="loader-wrap"><div class="loader"></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="location.href='dashboard.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+  <button class="nav-item" onclick="location.href='products.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Packages</button>
+  <button class="nav-item" onclick="location.href='team.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Network</button>
+  <button class="nav-item" onclick="location.href='profile.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</button>
+</nav>
+<div id="toast"></div>
+
+<!-- ============================================================
+     WELCOME / COMMUNITY POPUP — shows on every dashboard visit
+     ============================================================ -->
+<div id="welcomeOverlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <div class="welcome-card">
+    <div class="welcome-hero">
+      <button class="welcome-close" onclick="closeWelcome()" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="welcome-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg></div>
+      <div class="notice-eyebrow">Macedonia Dispatch</div>
+      <div class="welcome-title" id="welcomeTitle">A clearer way to stay informed.</div>
+      <div class="welcome-sub">Find service updates, account support, and community notices in the channels below.</div>
+    </div>
+    <div class="welcome-body">
+      <div class="welcome-notice"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span>Use only the channels listed here for official updates and assistance.</span></div>
+      <a class="welcome-link tg" id="welcomeTgLink" href="https://t.me/+ZBPQYNyTdks0NjI8" target="_blank" rel="noopener">
+        <span class="wl-icon"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+        <span class="wl-txt"><strong>Telegram Noticeboard</strong><span>Company updates and announcements</span></span>
+        <span class="wl-go">›</span>
+      </a>
+      <a class="welcome-link wa" id="welcomeWaLink" href="https://chat.whatsapp.com/Fr9g6gu6NFrLdz92RPrF0f?s=cl&amp;p=a&amp;ilr=1" target="_blank" rel="noopener">
+        <span class="wl-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+        <span class="wl-txt"><strong>WhatsApp Community</strong><span>Service support and discussion</span></span>
+        <span class="wl-go">›</span>
+      </a>
+      <button class="welcome-skip" onclick="closeWelcome()">Continue to account</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+
+<!-- ============================================================
+     BUSINESS LOGIC
+     ============================================================ -->
+<script>
+(function(){
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return;
+    var uid=s.user.id;
+    await window.MacedoniaAuth.loadProfile(uid); // fills [data-auth="full_name"] and the [data-vip] badge
+
+    var {data:w}=await window.sb.from("wallets").select("*").eq("user_id",uid).single();
+    if(w){
+      document.getElementById("walletBalance").textContent=window.MacedoniaAuth.money(w.balance);
+      document.getElementById("statDeposit").textContent="₦"+Number(w.total_deposit||0).toLocaleString();
+      document.getElementById("statProfit").textContent="₦"+Number(w.total_profit||0).toLocaleString();
+    }
+
+    // Daily income total (across ALL active plans, not just the 3 shown below)
+    // and last daily-income credit date — both were static placeholder text
+    // ("₦0" / "Just now") in the design; wired to real data here.
+    var {data:activeAll}=await window.sb.from("user_products").select("daily_income").eq("user_id",uid).eq("status","active");
+    var dailyTotal=(activeAll||[]).reduce(function(sum,p){return sum+Number(p.daily_income||0);},0);
+    document.getElementById("dailyIncomeTotal").textContent=window.MacedoniaAuth.money(dailyTotal);
+
+    var {data:lastCredit}=await window.sb.from("wallet_transactions").select("created_at").eq("user_id",uid).eq("type","daily_income").order("created_at",{ascending:false}).limit(1).single();
+    if(lastCredit) document.getElementById("lastCredited").textContent=window.MacedoniaAuth.timeAgo(lastCredit.created_at);
+
+    var emptyBoxIcon='<div class="empty-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>';
+
+    var {data:prods}=await window.sb.from("user_products").select("*, products(name)").eq("user_id",uid).eq("status","active").limit(3);
+    var ap=document.getElementById("activeProducts");
+    if(!prods||!prods.length){
+      ap.innerHTML='<div class="empty">'+emptyBoxIcon+'<p>No active oil packages yet.<br><a href="products.html" style="color:var(--primary-blue);font-weight:700">Browse oil packages →</a></p></div>';
+    } else {
+      ap.innerHTML=prods.map(function(p){
+        var pct=p.duration_days?Math.min(100,Math.round((p.days_collected/p.duration_days)*100)):0;
+        return '<div class="mini-product" data-days-collected="'+p.days_collected+'"><div><div class="mp-name">'+window.MacedoniaDisplay.packageName(p.products)+'</div><div class="mp-prog">'+p.days_collected+'/'+p.duration_days+' days</div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div></div><div class="mp-earn">+'+window.MacedoniaAuth.money(p.daily_income)+'/day</div></div>';
+      }).join("");
+    }
+
+    var {data:txs}=await window.sb.from("wallet_transactions").select("*").eq("user_id",uid).order("created_at",{ascending:false}).limit(5);
+    var txWrap=document.getElementById("recentTx");
+    if(!txs||!txs.length){ txWrap.innerHTML='<div class="empty"><p>No transactions yet.</p></div>'; }
+    else {
+      txWrap.innerHTML=txs.map(function(t){
+        var isCredit=t.amount>0;
+        return '<div class="list-item"><div><div class="li-title">'+t.description+'</div><div class="li-sub">'+window.MacedoniaAuth.timeAgo(t.created_at)+'</div></div><div class="li-amount '+(isCredit?"credit":"debit")+'">'+(isCredit?"+":"")+window.MacedoniaAuth.money(Math.abs(t.amount))+'</div></div>';
+      }).join("");
+    }
+
+    var {count}=await window.sb.from("messages").select("id",{count:"exact",head:true}).or("user_id.eq."+uid+",user_id.is.null").eq("is_read",false);
+    if(count>0){ var b=document.getElementById("notifBadge"); b.style.display="flex"; b.textContent=count>9?"9+":count; }
+  });
+})();
+</script>
+
+<!-- ============================================================
+     PRESENTATION-ONLY ENHANCEMENTS
+     ============================================================ -->
+<script>
+(function(){
+  // Time-of-day greeting
+  var h=new Date().getHours();
+  var eyebrow=document.getElementById("greetingEyebrow");
+  if(eyebrow) eyebrow.textContent=(h<12?"Good morning":h<18?"Good afternoon":"Good evening");
+
+  // Entrance reveal
+  document.querySelectorAll(".anim").forEach(function(el,i){
+    setTimeout(function(){ el.classList.add("in"); }, 80*i);
+  });
+
+  // Fix: Android Chrome miscalculates position:fixed against a stale
+  // viewport height when its address-bar toolbar collapses/expands,
+  // which can make backdrop-filter elements like .bottom-nav render
+  // detached from the true bottom edge. Re-pin using visualViewport.
+  var nav=document.querySelector(".bottom-nav");
+  if(nav && window.visualViewport){
+    var pin=function(){
+      var vv=window.visualViewport;
+      var offset=(window.innerHeight-vv.height-vv.offsetTop);
+      nav.style.transform="translateY(-"+Math.max(0,offset)+"px)";
+    };
+    window.visualViewport.addEventListener("resize",pin);
+    window.visualViewport.addEventListener("scroll",pin);
+    pin();
+  }
+
+  // Ripple on quick actions / buttons
+  document.querySelectorAll(".quick-item,.hero-btn,.promo-btn,.nav-item").forEach(function(el){
+    el.style.position=el.style.position||"relative";
+    el.style.overflow="hidden";
+    el.addEventListener("click",function(e){
+      var r=document.createElement("span");
+      var rect=el.getBoundingClientRect();
+      var size=Math.max(rect.width,rect.height);
+      r.className="ripple-el";
+      r.style.width=r.style.height=size+"px";
+      r.style.left=(e.clientX-rect.left-size/2)+"px";
+      r.style.top=(e.clientY-rect.top-size/2)+"px";
+      el.appendChild(r);
+      setTimeout(function(){ r.remove(); },550);
+    });
+  });
+
+  // Balance count-up whenever #walletBalance text is set by the business-logic script
+  var balanceEl=document.getElementById("walletBalance");
+  if(balanceEl){
+    var mo=new MutationObserver(function(){
+      balanceEl.style.transition="none";
+      balanceEl.style.opacity="0.35";
+      balanceEl.style.transform="translateY(4px)";
+      requestAnimationFrame(function(){
+        balanceEl.style.transition="opacity .5s var(--ease), transform .5s var(--ease)";
+        balanceEl.style.opacity="1";
+        balanceEl.style.transform="translateY(0)";
+      });
+    });
+    mo.observe(balanceEl,{childList:true,characterData:true,subtree:true});
+  }
+
+  // Investment cards: add a status badge once rendered. A plan with
+  // days_collected === 0 hasn't had its first payout yet (see the
+  // day-one-credit fix on the investments page), so it's flagged
+  // "Starts Tonight" here instead of "Active" to avoid implying income
+  // has already started flowing.
+  var apEl=document.getElementById("activeProducts");
+  if(apEl){
+    var apo=new MutationObserver(function(){
+      apEl.querySelectorAll(".mini-product").forEach(function(card){
+        if(card.querySelector(".mp-status")) return;
+        var fill=card.querySelector(".prog-fill");
+        var pct=fill?parseInt(fill.style.width)||0:0;
+        var daysCollected=parseInt(card.getAttribute("data-days-collected"))||0;
+        var badge=document.createElement("span");
+        badge.className="mp-status";
+        if(pct>=100){ badge.textContent="Completed"; badge.style.background="var(--success-green)"; }
+        else if(daysCollected===0){ badge.textContent="Starts Tonight"; badge.style.background="var(--primary-blue)"; }
+        else { badge.textContent="Active"; }
+        card.appendChild(badge);
+      });
+    });
+    apo.observe(apEl,{childList:true});
+  }
+})();
+</script>
+
+<!-- ============================================================
+     WELCOME / COMMUNITY POPUP LOGIC — shows every time a logged-in
+     user lands on the dashboard (no dismissal persistence, by design).
+     ============================================================ -->
+<script>
+(function(){
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+  window.closeWelcome=function(){
+    var ov=document.getElementById("welcomeOverlay");
+    ov.classList.remove("show");
+    setTimeout(function(){ ov.style.display="none"; },250);
+  };
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return; // only show to authenticated users
+
+    // Telegram/WhatsApp links here are admin-editable (Settings → Contact &
+    // Community Links). Fetch the live values; the hrefs already on the
+    // links are just a fallback if this request fails.
+    try{
+      var r=await fetch("/api/team?action=contact-links");
+      var d=await r.json();
+      if(d.ok && d.links){
+        if(d.links.telegram_community_url) document.getElementById("welcomeTgLink").href=d.links.telegram_community_url;
+        if(d.links.whatsapp_url) document.getElementById("welcomeWaLink").href=d.links.whatsapp_url;
+      }
+    }catch(e){ console.warn("Could not load contact links, using defaults:",e); }
+
+    setTimeout(function(){
+      var ov=document.getElementById("welcomeOverlay");
+      ov.style.display="flex";
+      requestAnimationFrame(function(){ ov.classList.add("show"); });
+    }, 500);
+  });
+})();
+</script>
+</body>
+</html>

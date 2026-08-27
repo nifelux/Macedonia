@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Macedonia — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2196F3;
+      --primary-dark: #1976D2;
+      --primary-light: #E3F2FD;
+      --text-dark: #212121;
+      --white: #FFFFFF;
+      --background-light: #F5F5F5;
+      --text-muted: #757575;
+      --border-light: #E0E0E0;
+      --success-green: #4CAF50;
+      --danger-red: #F44336;
+      --display: 'Fraunces', serif;
+      --body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--body);
+      background: linear-gradient(to bottom right, var(--white), var(--primary-light), var(--white));
+      min-height: 100vh;
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 440px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .nav-links {
+      display: none;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .icon-circle svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--primary);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .title {
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: none;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      padding: 12px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      font-family: var(--body);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+    }
+
+    .toggle-password:hover {
+      color: var(--text-dark);
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .forgot-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .forgot-link:hover {
+      color: var(--primary-dark);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .footer-text {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 24px;
+    }
+
+    .footer-text a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-text a:hover {
+      color: var(--primary-dark);
+    }
+
+    .alert {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .alert.show {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .alert-error {
+      background: #FFEBEE;
+      color: var(--danger-red);
+      border: 1px solid #FFCDD2;
+    }
+
+    svg {
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-section">
+        <div class="logo-icon">📊</div>
+        <div class="logo-text">Macedonia</div>
+      </div>
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="register.html">Register</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="body">
+      <div class="login-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>
+            </svg>
+          </div>
+          <h1 class="title">Welcome to Macedonia</h1>
+          <p class="subtitle">Access your Macedonia oil-package account</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="card">
+          <div id="errorAlert" class="alert alert-error">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="errorMessage"></span>
+          </div>
+
+          <form id="loginForm">
+            <!-- Email Field -->
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" id="email" class="form-input" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="password-wrapper">
+                <input type="password" id="password" class="form-input" placeholder="••••••••" autocomplete="current-password" required>
+                <button type="button" class="toggle-password" onclick="togglePassword()">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Forgot -->
+            <div class="form-footer">
+              <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary" id="loginBtn">Access Account</button>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <p class="footer-text">
+          Don't have an account? <a href="register.html">Create Account</a>
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+    }
+
+    (function(){
+      function cleanMsg(msg){
+        if(!msg) return null;
+        var s = String(msg).trim();
+        if(s==="{}"||s==="[]"||s==="[object Object]"||s==="undefined") return null;
+        try { var p = JSON.parse(s); if(p&&p.message) return p.message; } catch(e){}
+        return s;
+      }
+      function showError(msg){
+        var el=document.getElementById("errorAlert");
+        var span=document.getElementById("errorMessage");
+        span.textContent = cleanMsg(msg) || "Login failed. Please check your credentials.";
+        el.classList.add("show");
+      }
+      function hideError(){
+        document.getElementById("errorAlert").classList.remove("show");
+      }
+
+      function checkSession(){
+        if(!window.sb) return;
+        window.sb.auth.getSession().then(function(r){ if(r.data?.session) location.href="/dashboard.html"; });
+      }
+      if(window.sb){ checkSession(); } else { window.addEventListener("load", checkSession); }
+
+      function handleLogin(event){
+        event.preventDefault();
+        var btn=document.getElementById("loginBtn");
+        var email=document.getElementById("email").value.trim();
+        var password=document.getElementById("password").value;
+        hideError();
+
+        if(!email||!password){ showError("Please fill in all fields"); return; }
+        if(!window.sb){ showError("Connection error. Please refresh and try again."); return; }
+
+        btn.disabled=true; btn.textContent="Signing in…";
+        window.sb.auth.signInWithPassword({email:email,password:password}).then(function(r){
+          if(r.error){
+            var msg=cleanMsg(r.error.message);
+            if(!msg||msg.toLowerCase().includes("email not confirmed")){
+              msg = msg ? "Please check your email and confirm your account first." : "Login failed. Please check your email and password.";
+            }
+            showError(msg); btn.disabled=false; btn.textContent="Sign In"; return;
+          }
+          location.href="/dashboard.html";
+        }).catch(function(){ showError("Something went wrong. Please try again."); btn.disabled=false; btn.textContent="Sign In"; });
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", handleLogin);
+    })();
+  </script>
+</body>
+</html>

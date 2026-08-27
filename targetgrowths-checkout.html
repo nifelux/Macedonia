@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macedonia — Secure Payment</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    :root{--pink:#EC4899;--purple:#9333EA;--ink:#212121;--muted:#757575;--line:#E0E0E0;--cream:#FFF8FC;--green:#15803D;--green-bg:#ECFDF5;--orange:#B45309;--orange-bg:#FFF7ED;--red:#B91C1C;--red-bg:#FEF2F2}
+    *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',Arial,sans-serif}.wrap{max-width:720px;margin:0 auto;min-height:100vh;padding-bottom:32px}.top{display:flex;align-items:center;gap:14px;padding:18px;background:#fff;border-bottom:1px solid var(--line)}.back{color:var(--purple);font-size:28px;text-decoration:none;line-height:1}.title{font-size:18px;font-weight:800}.card{margin:16px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 18px rgba(35,17,44,.06);overflow:hidden}.intro{padding:20px}.intro h1{font-family:Georgia,serif;font-size:24px;margin:0 0 8px}.intro p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.summary{display:flex;justify-content:space-between;gap:14px;padding:15px 20px;background:#FCF4FF;border-top:1px solid #F1E4FA;border-bottom:1px solid #F1E4FA}.label{color:var(--muted);font-size:12px}.value{font-weight:800;color:var(--purple);font-size:16px;margin-top:3px}.status{display:none;margin:16px;padding:14px 16px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:600}.status.show{display:block}.pending{background:var(--orange-bg);color:var(--orange)}.success{background:var(--green-bg);color:var(--green)}.failed{background:var(--red-bg);color:var(--red)}.actions{display:flex;gap:10px;flex-wrap:wrap;padding:0 20px 20px}.btn{display:inline-block;border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer;text-decoration:none;font-size:13px}.primary{background:var(--pink);color:#fff}.secondary{background:#F3E8FF;color:var(--purple)}.small{font-size:11px;color:var(--muted);line-height:1.55;padding:0 20px 20px}.reference{font-family:monospace;word-break:break-all}.hidden{display:none!important}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+  <main class="wrap">
+    <header class="top"><a class="back" href="recharge.html" aria-label="Back">‹</a><div class="title">Secure TargetGrowths Payment</div></header>
+    <section class="card">
+      <div class="intro"><h1 id="heading">Preparing secure checkout</h1><p id="introText">TargetGrowths will open in this same browser tab. Keep your payment reference; the wallet is credited only after the server confirms the completed provider payment.</p></div>
+      <div class="summary"><div><div class="label">Deposit reference</div><div class="value reference" id="refValue">Loading…</div></div><div style="text-align:right"><div class="label">Amount</div><div class="value" id="amountValue">₦—</div></div></div>
+      <div id="status" class="status pending show">Preparing secure payment…</div>
+      <div id="launchActions" class="actions hidden"><a id="launchLink" class="btn primary" rel="noreferrer">Continue to secure payment</a><a class="btn secondary" href="recharge.html">Cancel</a></div>
+      <div id="returnActions" class="actions hidden"><a class="btn primary" href="dashboard.html">Go to dashboard</a><a class="btn secondary" href="recharge-history.html">View deposit history</a></div>
+      <div class="small">The payment page is opened as a top-level provider page because the downstream Nekpayment gateway does not permit cross-origin iframe embedding. Wallet crediting does not depend on the browser redirect; TargetGrowths webhook and server verification remain authoritative.</div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="assets/js/supabase.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+  <script>
+  (function(){
+    var ref="",userId="",checkoutUrl="",pollTimer=null,started=Date.now(),maxWait=30*60*1000;
+    var successStates=["completed","success","successful","paid","settled","approved"];
+    var failureStates=["rejected","failed","cancelled","canceled","declined"];
+    function waitReady(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+    function setStatus(kind,text){var el=document.getElementById("status");el.className="status "+kind+" show";el.textContent=text;}
+    function money(v){return "₦"+Number(v||0).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});}
+    function clearSession(){try{localStorage.removeItem("schweppes_tg_pending_ref");localStorage.removeItem("schweppes_tg_checkout");localStorage.removeItem("schweppes_tg_checkout_launched_ref");}catch(e){}}
+    function finish(kind,title,text){if(pollTimer)clearTimeout(pollTimer);document.getElementById("heading").textContent=title;document.getElementById("introText").textContent=text;document.getElementById("returnActions").classList.remove("hidden");document.getElementById("launchActions").classList.add("hidden");setStatus(kind,text);if(kind!=="pending")clearSession();}
+    async function poll(){
+      if(Date.now()-started>maxWait){setStatus("pending","Still waiting for provider confirmation. You may leave this page and check your deposit history later.");return;}
+      try{
+        var r=await fetch("/api/deposit?action=status&ref="+encodeURIComponent(ref)+"&user_id="+encodeURIComponent(userId),{cache:"no-store"});
+        var d=await r.json();var dbStatus=String(d.status||"").toLowerCase(),providerStatus=String(d.provider_status||"").toLowerCase();
+        if(successStates.includes(dbStatus)&&successStates.includes(providerStatus)){finish("success","Payment confirmed","TargetGrowths confirmed the payment and the wallet has been credited.");return;}
+        if(failureStates.includes(dbStatus)||failureStates.includes(providerStatus)){finish("failed","Payment was not completed","TargetGrowths did not confirm a successful payment. No wallet credit was issued.");return;}
+        setStatus("pending","Payment is pending provider confirmation. This page will keep checking securely…");
+      }catch(e){setStatus("pending","Waiting for a secure status response…");}
+      pollTimer=setTimeout(poll,5000);
+    }
+    waitReady(async function(){
+      var s=await window.MacedoniaAuth.requireAuth();if(!s)return;userId=s.user.id;
+      var q=new URLSearchParams(location.search);ref=q.get("ref")||"";var result=q.get("result")||"";
+      try{
+        var saved=JSON.parse(localStorage.getItem("schweppes_tg_checkout")||"null");
+        if(saved&&saved.ref===ref){checkoutUrl=saved.url||"";document.getElementById("amountValue").textContent=money(saved.amount);}
+      }catch(e){}
+      if(!ref||!checkoutUrl){setStatus("failed","This payment session is missing or expired. Start a new deposit from the recharge page.");return;}
+      document.getElementById("refValue").textContent=ref;
+      var launchedRef="";try{launchedRef=localStorage.getItem("schweppes_tg_checkout_launched_ref")||"";}catch(e){}
+      var launched=launchedRef===ref;
+      if(result==="cancelled"){finish("failed","Payment cancelled","The payment was cancelled. No wallet credit was issued.");return;}
+      if(!result&&!launched){
+        try{localStorage.setItem("schweppes_tg_checkout_launched_ref",ref);}catch(e){}
+        document.getElementById("launchLink").href=checkoutUrl;document.getElementById("launchActions").classList.remove("hidden");setStatus("pending","Continue to the secure TargetGrowths payment page…");
+        // Give the browser a moment to render the reference before top-level navigation.
+        setTimeout(function(){window.location.href=checkoutUrl;},250);return;
+      }
+      document.getElementById("returnActions").classList.remove("hidden");setStatus("pending",result==="success"?"Return received. Verifying the payment with TargetGrowths…":"Waiting for TargetGrowths payment confirmation…");poll();
+    });
+  })();
+  </script>
+</body>
+</html>

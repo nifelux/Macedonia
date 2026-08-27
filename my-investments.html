@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — My Oil Packages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    :root{
+      --primary-pink:        #EC4899;
+      --primary-purple:      #9333EA;
+      --pink-light:          #FCE7F3;
+      --text-dark:           #212121;
+      --white:               #FFFFFF;
+      --background-light:    #F5F5F5;
+      --text-muted:          #757575;
+      --border-light:        #E0E0E0;
+      --success-green:       #4CAF50;
+      --success-green-bg:    #E8F5E9;
+      --shadow-sm:0 2px 10px rgba(0,0,0,0.05);
+    }
+    svg{stroke-linecap:round;stroke-linejoin:round;display:block;}
+
+    .auto-hero { background:linear-gradient(155deg,var(--primary-pink),var(--primary-purple)); padding:26px 20px; color:#fff; text-align:center; }
+    .auto-icon { width:40px;height:40px;margin:0 auto 8px; }
+    .auto-icon svg{width:100%;height:100%;stroke:#fff;stroke-width:1.6;fill:none;}
+    .auto-title { font-family:'Fraunces',serif; font-size:19px; font-weight:600; }
+    .auto-sub { font-size:13px; opacity:.85; margin-top:6px; line-height:1.5; }
+
+    .mi-head{padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between;}
+    .mi-head-title{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--text-dark);}
+    .mi-head a{font-size:13px;color:var(--primary-pink);font-weight:600;}
+    .mi-section-title{padding:16px 16px 8px;font-family:'Fraunces',serif;font-size:16px;font-weight:600;margin-top:4px;color:var(--text-dark);}
+
+    .up-card { background:var(--white); border-radius:16px; box-shadow:var(--shadow-sm); border:1px solid var(--border-light); margin:0 16px 12px; overflow:hidden; }
+    .up-header { padding:14px 16px; border-bottom:1px solid var(--border-light); display:flex; align-items:center; justify-content:space-between; }
+    .up-name { font-size:15px; font-weight:700; color:var(--text-dark); }
+    .up-started{font-size:11px;color:var(--text-muted);margin-top:2px;}
+    .up-body { padding:14px 16px; }
+    .up-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
+    .us-val { font-family:'Fraunces',serif; font-size:14px; font-weight:600; color:var(--primary-purple); }
+    .us-lbl { font-size:10px; color:var(--text-muted); text-transform:uppercase; margin-top:2px; }
+    .prog-bar { height:6px; background:var(--background-light); border-radius:6px; overflow:hidden; }
+    .prog-fill { height:100%; background:var(--primary-pink); border-radius:6px; transition:width .4s; }
+    .prog-label { display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:4px; }
+    .status-done { display:inline-flex;align-items:center;gap:5px; background:var(--success-green-bg); color:var(--success-green); padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+    .status-done svg{width:11px;height:11px;stroke:currentColor;stroke-width:3;fill:none;}
+    .last-credit { display:flex;align-items:center;justify-content:center;gap:6px; font-size:11px; color:var(--text-muted); margin-top:8px; text-align:center; padding-top:8px; border-top:1px dashed var(--border-light); }
+    .last-credit svg{width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none;flex-shrink:0;}
+    .last-credit.pending { color:var(--primary-purple); font-weight:600; }
+
+    .mi-empty{padding:44px 20px;text-align:center;color:var(--text-muted);}
+    .mi-empty-icon{width:34px;height:34px;margin:0 auto 10px;color:var(--border-light);}
+    .mi-empty-icon svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.5;fill:none;}
+    .mi-loader-wrap{display:flex;justify-content:center;padding:34px 0;}
+    .mi-loader{width:26px;height:26px;border-radius:50%;border:3px solid var(--border-light);border-top-color:var(--primary-pink);animation:mispin .8s linear infinite;}
+    @keyframes mispin{to{transform:rotate(360deg);}}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
+<div class="page-wrap packages-account-page">
+  <div class="topbar">
+    <a class="back-btn" href="profile.html">‹</a>
+    <span class="topbar-title" style="display:flex;align-items:center;gap:8px">
+      <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--primary-pink);stroke-width:2;fill:none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      My Oil Packages
+    </span>
+  </div>
+
+  <div class="auto-hero">
+    <div class="auto-icon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+    <div class="auto-title">Oil package credits are tracked automatically</div>
+    <div class="auto-sub">Every active oil package below follows the existing daily-credit schedule configured in the platform.</div>
+  </div>
+
+  <div class="mi-head">
+    <span class="mi-head-title">Active Oil Packages</span>
+    <a href="products.html">+ Choose Package</a>
+  </div>
+  <div id="prodList"><div class="mi-loader-wrap"><div class="mi-loader"></div></div></div>
+
+  <div class="mi-section-title">Completed Oil Packages</div>
+  <div id="doneList"></div>
+  <div style="height:16px"></div>
+</div>
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script>
+(function(){
+  var boxIconSvg='<svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>';
+  var moonIconSvg='<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  var clockIconSvg='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+  var checkIconSvg='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return;
+    var uid=s.user.id;
+    var {data:prods}=await window.sb.from("user_products").select("*,products(name,description)").eq("user_id",uid).order("created_at",{ascending:false});
+    var active=(prods||[]).filter(function(p){return p.status==="active";});
+    var done=(prods||[]).filter(function(p){return p.status==="completed";});
+
+    var el=document.getElementById("prodList");
+    if(!active.length){
+      el.innerHTML='<div class="mi-empty"><div class="mi-empty-icon">'+boxIconSvg+'</div><p>No active oil packages.<br><a href="products.html" style="color:var(--primary-pink);font-weight:700">Browse oil packages →</a></p></div>';
+    } else {
+      el.innerHTML=active.map(function(p){
+        var pct=p.duration_days?Math.min(100,Math.round((p.days_collected/p.duration_days)*100)):0;
+        // Only trust last_claim_date as a real "credited" event once at
+        // least one day has actually been collected. A non-null date on
+        // its own isn't proof of a payout (e.g. it can be pre-stamped at
+        // purchase time), so days_collected is the source of truth here.
+        var credited = p.days_collected > 0 && p.last_claim_date;
+        var lastCreditHtml = credited
+          ? moonIconSvg+' Last package credit: '+new Date(p.last_claim_date).toDateString()
+          : clockIconSvg+' First package credit follows the configured schedule';
+        return '<div class="up-card"><div class="up-header"><div><div class="up-name">'+window.MacedoniaDisplay.packageName(p.products)+'</div><div class="up-started">Started '+new Date(p.start_date).toLocaleDateString()+'</div></div></div>'+
+          '<div class="up-body"><div class="up-stats"><div><div class="us-val">'+window.MacedoniaAuth.money(p.daily_income)+'</div><div class="us-lbl">Package Credit</div></div>'+
+          '<div><div class="us-val">'+p.days_collected+'/'+p.duration_days+'</div><div class="us-lbl">Days</div></div>'+
+          '<div><div class="us-val">'+window.MacedoniaAuth.money(p.total_earned)+'</div><div class="us-lbl">Package Credit</div></div></div>'+
+          '<div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div><div class="prog-label"><span>Progress</span><span>'+pct+'%</span></div>'+
+          '<div class="last-credit'+(credited?'':' pending')+'">'+lastCreditHtml+'</div></div></div>';
+      }).join("");
+    }
+
+    var dl=document.getElementById("doneList");
+    if(done.length){
+      dl.innerHTML=done.map(function(p){
+        return '<div class="up-card"><div class="up-header"><div class="up-name">'+window.MacedoniaDisplay.packageName(p.products)+'</div><span class="status-done">'+checkIconSvg+' Completed</span></div>'+
+          '<div class="up-body"><div class="up-stats"><div><div class="us-val">'+p.duration_days+'d</div><div class="us-lbl">Package Window</div></div>'+
+          '<div><div class="us-val">'+window.MacedoniaAuth.money(p.total_earned)+'</div><div class="us-lbl">Total Earned</div></div>'+
+          '<div><div class="us-val">'+window.MacedoniaAuth.money(p.amount_paid)+'</div><div class="us-lbl">Package Amount</div></div></div></div></div>';
+      }).join("");
+    } else {
+      dl.innerHTML='<div class="mi-empty" style="padding:20px"><p style="font-size:13px;color:var(--text-muted)">No completed oil packages yet.</p></div>';
+    }
+  });
+})();
+</script>
+</body>
+</html>

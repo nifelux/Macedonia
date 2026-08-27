@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Macedonia — Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <style>
+    :root{
+      --primary-blue:        #9333EA;
+      --primary-blue-dark:   #6B21A8;
+      --primary-blue-light:  #F3E8FF;
+      --accent-pink:         #EC4899;
+      --accent-pink-dark:    #BE185D;
+      --accent-pink-light:   #FDF2F8;
+      --gold:                #D4AF37;
+      --gold-dark:           #B8860B;
+      --text-dark:           #1F1533;
+      --white:               #FFFFFF;
+      --background-light:    #FAF7FC;
+      --text-muted:          #8B7D99;
+      --border-light:        #EDE4F5;
+      --success-green:       #10B981;
+      --success-green-bg:    #ECFDF5;
+      --danger-red:          #EF4444;
+      --danger-red-bg:       #FEF2F2;
+
+      --shadow-sm:0 2px 10px rgba(31,21,51,0.06);
+      --shadow-md:0 10px 30px rgba(31,21,51,0.10);
+      --shadow-lg:0 20px 60px rgba(31,21,51,0.18);
+      --shadow-blue:0 16px 40px rgba(147,51,234,0.32);
+
+      --radius-sm:14px; --radius-md:20px; --radius-lg:28px; --radius-xl:32px;
+      --ease:cubic-bezier(.22,1,.36,1);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;background:var(--background-light);
+      background-image:
+        radial-gradient(circle at 100% 0%, rgba(147,51,234,0.10) 0%, transparent 45%),
+        radial-gradient(circle at 0% 30%, rgba(236,72,153,0.07) 0%, transparent 40%);
+      background-attachment:fixed;
+      font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+      color:var(--text-dark); -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    .page-wrap{max-width:520px;margin:0 auto;padding-bottom:110px;}
+    a{text-decoration:none;color:inherit;}
+    button{font-family:inherit;border:none;background:none;cursor:pointer;}
+    svg{stroke-linecap:round;stroke-linejoin:round;display:block;}
+
+    .anim{opacity:0;transform:translateY(16px);}
+    .anim.in{animation:riseIn .6s var(--ease) forwards;}
+    @keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+    @media (prefers-reduced-motion: reduce){ .anim{opacity:1;transform:none;animation:none;} }
+
+    .profile-hero{
+      position:relative;overflow:hidden;
+      background:
+        radial-gradient(circle at 88% -10%, rgba(212,175,55,0.20) 0%, transparent 50%),
+        radial-gradient(circle at -10% 115%, rgba(236,72,153,0.40) 0%, transparent 50%),
+        linear-gradient(155deg,var(--primary-blue-dark) 0%,var(--primary-blue) 55%,var(--accent-pink-dark) 100%);
+      padding:34px 20px 56px; text-align:center; color:#fff;
+      box-shadow:var(--shadow-blue);
+    }
+    .profile-hero::before,.profile-hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,0.08);}
+    .profile-hero::before{width:200px;height:200px;top:-90px;right:-50px;}
+    .profile-hero::after{width:140px;height:140px;bottom:-60px;left:-40px;background:rgba(236,72,153,0.20);}
+    .profile-hero > *{position:relative;z-index:1;}
+
+    .avatar{
+      width:76px;height:76px;border-radius:50%;
+      background:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.14));
+      border:3px solid rgba(255,255,255,.55);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Fraunces',serif;font-size:30px;margin:0 auto 14px;
+      box-shadow:0 10px 26px rgba(0,0,0,0.18);
+      overflow:hidden;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+    .profile-name{font-family:'Fraunces',serif;font-size:21px;font-weight:700;letter-spacing:-.01em;}
+    .profile-email{font-size:12.5px;opacity:.82;margin-top:3px;}
+    .profile-ref{font-size:12px;margin-top:10px;opacity:.82;}
+    .profile-ref span{font-weight:700;opacity:1;letter-spacing:.02em;}
+    .profile-hero .vip-badge{
+      display:inline-block;margin-top:12px;font-size:11px;font-weight:700;letter-spacing:.03em;
+      padding:6px 14px;border-radius:999px;
+      background:linear-gradient(135deg,#F5D67B,var(--gold) 55%,var(--gold-dark));
+      color:#3D2B00;box-shadow:0 4px 14px rgba(212,175,55,0.45);
+    }
+
+    .cards-strip{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+      margin:-32px 16px 26px;position:relative;z-index:5;
+    }
+    .strip-card{
+      background:var(--white);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
+      border:1px solid var(--border-light);
+      padding:16px 8px;text-align:center;
+      transition:transform .18s var(--ease);
+    }
+    .strip-card:active{transform:translateY(-2px) scale(.98);}
+    .strip-val{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--text-dark);letter-spacing:-.01em;}
+    .strip-lbl{font-size:10px;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;}
+
+    .section-title{
+      font-size:11.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;
+      letter-spacing:.09em;padding:0 20px;margin-bottom:10px;
+    }
+    .section{padding:0 16px;margin-bottom:22px;}
+    .menu-group{
+      background:var(--white);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);
+      border:1px solid var(--border-light);overflow:hidden;
+    }
+    .menu-item{
+      display:flex;align-items:center;gap:14px;padding:15px 16px;
+      border-bottom:1px solid var(--border-light);
+      transition:background .15s;
+    }
+    .menu-item:last-child{border-bottom:none;}
+    .menu-item:active{background:var(--background-light);}
+    .mi-ic{
+      width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+      background:var(--primary-blue-light);color:var(--primary-blue-dark);flex-shrink:0;
+    }
+    .mi-ic svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;}
+    .mi-txt{flex:1;}
+    .mi-txt strong{display:block;font-size:14.5px;font-weight:700;color:var(--text-dark);}
+    .mi-txt span{font-size:11.5px;color:var(--text-muted);margin-top:2px;}
+    .mi-go{font-size:18px;color:var(--border-light);}
+
+    .signout-btn{
+      margin:10px 16px 0;width:calc(100% - 32px);padding:16px;border-radius:var(--radius-md);
+      background:var(--white);border:1px solid var(--border-light);
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      font-weight:700;font-size:14.5px;color:var(--danger-red);
+      transition:transform .15s var(--ease);
+    }
+    .signout-btn:active{transform:scale(.97);}
+    .signout-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;}
+
+    /* ============================================================
+       BOTTOM NAVIGATION
+       Positioning, centering, and item styling all come from the
+       shared assets/css/styles.css .bottom-nav rule (left:50% +
+       transform:translateX(-50%) + max-width:480px — the correct,
+       mobile-centered version used across the whole site). Redeclaring
+       .bottom-nav here would only override the properties actually
+       listed and leave the rest (like transform) fighting between the
+       two files. .nav-icon is the one exception — the shared rule was
+       written for emoji icons (font-size), not SVGs, so it's redeclared
+       here purely for sizing, not positioning.
+       ============================================================ */
+    .nav-icon{width:21px;height:21px;stroke:currentColor;stroke-width:2;fill:none;}
+  </style>
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css">
+  <script src="assets/js/macedonia-display.js"></script>
+</head>
+<body>
+<div class="page-wrap">
+  <section class="profile-hero anim anim-1">
+    <div class="avatar" id="avatar">U</div>
+    <div class="profile-name" id="userName">User</div>
+    <div class="profile-email" id="userPhone">—</div>
+    <div class="profile-ref">Referral Code: <span id="refCode">—</span></div>
+    <div class="vip-badge" id="vipBadge">Member</div>
+  </section>
+
+  <section class="cards-strip anim anim-2">
+    <div class="strip-card">
+      <div class="strip-val" id="walletBalance">₦0</div>
+      <div class="strip-lbl">Balance</div>
+    </div>
+    <div class="strip-card">
+      <div class="strip-val" id="teamCount">0</div>
+      <div class="strip-lbl">Network</div>
+    </div>
+    <div class="strip-card">
+      <div class="strip-val" id="prodCount">0</div>
+      <div class="strip-lbl">Oil Packages</div>
+    </div>
+  </section>
+
+  <div class="section-title anim anim-3">Assets</div>
+  <section class="section anim anim-3">
+    <div class="menu-group">
+      <a href="my-investments.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <div class="mi-txt"><strong>My Oil Packages</strong><span>Credited automatically — no action needed</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="bank-card.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <div class="mi-txt"><strong>Bank Card</strong><span>Manage withdrawal accounts</span></div>
+        <div class="mi-go">›</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-title anim anim-4">History</div>
+  <section class="section anim anim-4">
+    <div class="menu-group">
+      <a href="recharge-history.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+        <div class="mi-txt"><strong>Funding History</strong><span>All deposit records</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="withdrawal-history.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div class="mi-txt"><strong>Payout History</strong><span>All withdrawal records</span></div>
+        <div class="mi-go">›</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-title anim anim-5">Activities</div>
+  <section class="section anim anim-5">
+    <div class="menu-group">
+      <a href="daily-checkin.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="mi-txt"><strong>Daily Energy Brief</strong><span>Review the daily refinery briefing</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="gift-code.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="mi-txt"><strong>Gift Code</strong><span>Redeem bonus gift codes</span></div>
+        <div class="mi-go">›</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-title anim anim-6">Settings</div>
+  <section class="section anim anim-6">
+    <div class="menu-group">
+      <a href="profile.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+        <div class="mi-txt"><strong>Edit Profile</strong><span>Update your information</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="change-password.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="mi-txt"><strong>Change Password</strong><span>Keep your account secure</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="notifications.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div class="mi-txt"><strong>Notifications</strong><span>—</span></div>
+        <div class="mi-go">›</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-title anim anim-7">Services</div>
+  <section class="section anim anim-7">
+    <div class="menu-group">
+      <a href="messages.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>
+        <div class="mi-txt"><strong>Messages</strong><span>From admin</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="contact.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="mi-txt"><strong>Contact Support</strong><span>Get help from us</span></div>
+        <div class="mi-go">›</div>
+      </a>
+      <a href="about.html" class="menu-item">
+        <div class="mi-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+        <div class="mi-txt"><strong>About Macedonia</strong><span>Learn about Macedonia packages</span></div>
+        <div class="mi-go">›</div>
+      </a>
+    </div>
+  </section>
+
+  <button class="signout-btn anim anim-8" onclick="window.MacedoniaAuth.logout()">
+    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Sign Out
+  </button>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-item" onclick="location.href='dashboard.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</button>
+  <button class="nav-item" onclick="location.href='products.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Packages</button>
+  <button class="nav-item" onclick="location.href='team.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Network</button>
+  <button class="nav-item active" onclick="location.href='profile.html'"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="assets/js/supabase.js" defer></script>
+<script src="assets/js/auth.js" defer></script>
+<script>
+(function(){
+  function waitSb(cb){if(window.sb&&window.MacedoniaAuth){cb();return;}var t=setInterval(function(){if(window.sb&&window.MacedoniaAuth){clearInterval(t);cb();}},50);}
+  waitSb(async function(){
+    var s=await window.MacedoniaAuth.requireAuth(); if(!s)return;
+    var uid=s.user.id;
+    var profile=await window.MacedoniaAuth.loadProfile(uid);
+    if(profile){
+      document.getElementById("userName").textContent=profile.full_name||"User";
+      var avatarEl=document.getElementById("avatar");
+      avatarEl.textContent=(profile.full_name||"U")[0].toUpperCase();
+      document.getElementById("userPhone").textContent=profile.phone||"—";
+      document.getElementById("refCode").textContent=profile.referral_code||"—";
+      document.getElementById("vipBadge").textContent=profile.vip_level>0?"Package Tier "+profile.vip_level:"Member";
+
+      var {data:w}=await window.sb.from("wallets").select("*").eq("user_id",uid).single();
+      if(w) document.getElementById("walletBalance").textContent=window.MacedoniaAuth.money(w.balance);
+
+      // Was .eq("referrer_id", uid) — that column doesn't exist on profiles;
+      // the real FK is referred_by, so this always returned 0 before.
+      var {count:tc}=await window.sb.from("profiles").select("*",{count:"exact",head:true}).eq("referred_by",uid);
+      document.getElementById("teamCount").textContent=tc||0;
+
+      var {count:pc}=await window.sb.from("user_products").select("*",{count:"exact",head:true}).eq("user_id",uid).eq("status","active");
+      document.getElementById("prodCount").textContent=pc||0;
+    }
+    document.querySelectorAll(".anim").forEach((el,i)=>setTimeout(()=>el.classList.add("in"),80*i));
+  });
+})();
+</script>
+</body>
+</html>

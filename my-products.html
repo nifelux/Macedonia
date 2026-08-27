@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Macedonia — My Oil Packages</title>
+  <title>Macedonia — My Macedonia Products</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
   <style>
@@ -30,14 +30,14 @@
     .prog-label { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:4px; }
     .status-done { background:#DDF6EA; color:#0D6548; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
   </style>
-  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=signal-app-20260827">
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=products-red-20260827">
   <script src="assets/js/macedonia-display.js"></script>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
 <div class="page-wrap">
   <div class="topbar">
     <a class="back-btn" href="profile.html">‹</a>
-    <span class="topbar-title">📦 My Oil Packages</span>
+    <span class="topbar-title">📦 My Macedonia Products</span>
     <div></div>
   </div>
 
@@ -49,7 +49,7 @@
   </div>
 
   <div style="padding:16px 16px 8px;display:flex;align-items:center;justify-content:space-between">
-    <span style="font-size:15px;font-weight:700">Active oil packages</span>
+    <span style="font-size:15px;font-weight:700">Active Macedonia Products</span>
     <a href="products.html" style="font-size:13px;color:var(--purple);font-weight:600">+ Buy More</a>
   </div>
 
@@ -112,7 +112,7 @@
 
     var el=document.getElementById("prodList");
     if(!active.length){
-      el.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>No active products.<br><a href="products.html" style="color:var(--purple);font-weight:700">Browse oil packages →</a></p></div>';
+      el.innerHTML='<div class="empty"><div class="empty-icon">📦</div><p>No active products.<br><a href="products.html" style="color:var(--purple);font-weight:700">Browse Macedonia Products →</a></p></div>';
     } else {
       el.innerHTML=active.map(function(p){
         var pct=p.duration_days?Math.min(100,Math.round((p.days_collected/p.duration_days)*100)):0;

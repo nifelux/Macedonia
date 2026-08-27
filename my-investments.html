@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Macedonia — My Oil Packages</title>
+  <title>Macedonia — My Macedonia Products</title>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/css/styles.css"/>
   <style>
@@ -56,7 +56,7 @@
     .mi-loader{width:26px;height:26px;border-radius:50%;border:3px solid var(--border-light);border-top-color:var(--primary-pink);animation:mispin .8s linear infinite;}
     @keyframes mispin{to{transform:rotate(360deg);}}
   </style>
-  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=signal-app-20260827">
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=products-red-20260827">
   <script src="assets/js/macedonia-display.js"></script>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
@@ -65,23 +65,23 @@
     <a class="back-btn" href="profile.html">‹</a>
     <span class="topbar-title" style="display:flex;align-items:center;gap:8px">
       <svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:var(--primary-pink);stroke-width:2;fill:none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      My Oil Packages
+      My Macedonia Products
     </span>
   </div>
 
   <div class="auto-hero">
     <div class="auto-icon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
-    <div class="auto-title">Oil package credits are tracked automatically</div>
-    <div class="auto-sub">Every active oil package below follows the existing daily-credit schedule configured in the platform.</div>
+    <div class="auto-title">Macedonia Product credits are tracked automatically</div>
+    <div class="auto-sub">Every active Macedonia Product below follows the existing daily-credit schedule configured in the platform.</div>
   </div>
 
   <div class="mi-head">
-    <span class="mi-head-title">Active Oil Packages</span>
+    <span class="mi-head-title">Active Macedonia Products</span>
     <a href="products.html">+ Choose Package</a>
   </div>
   <div id="prodList"><div class="mi-loader-wrap"><div class="mi-loader"></div></div></div>
 
-  <div class="mi-section-title">Completed Oil Packages</div>
+  <div class="mi-section-title">Completed Macedonia Products</div>
   <div id="doneList"></div>
   <div style="height:16px"></div>
 </div>
@@ -106,7 +106,7 @@
 
     var el=document.getElementById("prodList");
     if(!active.length){
-      el.innerHTML='<div class="mi-empty"><div class="mi-empty-icon">'+boxIconSvg+'</div><p>No active oil packages.<br><a href="products.html" style="color:var(--primary-pink);font-weight:700">Browse oil packages →</a></p></div>';
+      el.innerHTML='<div class="mi-empty"><div class="mi-empty-icon">'+boxIconSvg+'</div><p>No active Macedonia Products.<br><a href="products.html" style="color:var(--primary-pink);font-weight:700">Browse Macedonia Products →</a></p></div>';
     } else {
       el.innerHTML=active.map(function(p){
         var pct=p.duration_days?Math.min(100,Math.round((p.days_collected/p.duration_days)*100)):0;
@@ -136,7 +136,7 @@
           '<div><div class="us-val">'+window.MacedoniaAuth.money(p.amount_paid)+'</div><div class="us-lbl">Package Amount</div></div></div></div></div>';
       }).join("");
     } else {
-      dl.innerHTML='<div class="mi-empty" style="padding:20px"><p style="font-size:13px;color:var(--text-muted)">No completed oil packages yet.</p></div>';
+      dl.innerHTML='<div class="mi-empty" style="padding:20px"><p style="font-size:13px;color:var(--text-muted)">No completed Macedonia Products yet.</p></div>';
     }
   });
 })();

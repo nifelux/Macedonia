@@ -162,7 +162,7 @@
       .ref-code{font-size:18px;}
     }
   </style>
-  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=signal-app-20260827">
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=products-red-20260827">
   <script src="assets/js/macedonia-display.js"></script>
 </head>
 <body data-supabase-url="YOUR_SUPABASE_URL" data-supabase-anon="YOUR_SUPABASE_ANON_KEY">
@@ -344,7 +344,7 @@
   window.copyCode=function(){ navigator.clipboard.writeText(refCode).then(function(){window.MacedoniaAuth.toast("Referral code copied!");}); };
   window.shareLink=function(){
     var link=location.origin+"/register.html?ref="+refCode;
-    if(navigator.share){ navigator.share({title:"Join Macedonia",text:"Join me on Macedonia and explore oil-product packages! Use my code: "+refCode,url:link}); }
+    if(navigator.share){ navigator.share({title:"Join Macedonia",text:"Join me on Macedonia and explore Macedonia Productss! Use my code: "+refCode,url:link}); }
     else { navigator.clipboard.writeText(link).then(function(){window.MacedoniaAuth.toast("Referral link copied!");}); }
   };
 })();

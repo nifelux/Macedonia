@@ -406,7 +406,7 @@
     }
     #toast.show{opacity:1;}
   </style>
-  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=signal-app-20260827">
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=products-red-20260827">
   <script src="assets/js/macedonia-display.js"></script>
 </head>
 <body>
@@ -504,7 +504,7 @@
 
   <section class="section">
     <div class="sec-row">
-      <h2>Active Oil Packages</h2>
+      <h2>Active Macedonia Products</h2>
       <a href="my-investments.html">View All</a>
     </div>
     <div id="activeProducts">
@@ -516,7 +516,7 @@
     <div class="income-strip">
       <div class="ic"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
       <div class="txt">
-        <strong>Build your oil-package network.</strong>
+        <strong>Build your Macedonia Products network.</strong>
         <span>Share package information through your existing network.</span>
       </div>
     </div>
@@ -525,8 +525,8 @@
   <section class="section">
     <div class="promo-banner">
       <div class="promo-text">
-        <div class="pt-title">Oil Package Update</div>
-        <div class="pt-sub">Review available oil-product package activity.</div>
+        <div class="pt-title">Macedonia Product Update</div>
+        <div class="pt-sub">Review available Macedonia Products activity.</div>
       </div>
       <button class="promo-btn" onclick="location.href='recharge.html'">Review Packages</button>
     </div>
@@ -620,7 +620,7 @@
     var {data:prods}=await window.sb.from("user_products").select("*, products(name)").eq("user_id",uid).eq("status","active").limit(3);
     var ap=document.getElementById("activeProducts");
     if(!prods||!prods.length){
-      ap.innerHTML='<div class="empty">'+emptyBoxIcon+'<p>No active oil packages yet.<br><a href="products.html" style="color:var(--primary-blue);font-weight:700">Browse oil packages →</a></p></div>';
+      ap.innerHTML='<div class="empty">'+emptyBoxIcon+'<p>No active Macedonia Products yet.<br><a href="products.html" style="color:var(--primary-blue);font-weight:700">Browse Macedonia Products →</a></p></div>';
     } else {
       ap.innerHTML=prods.map(function(p){
         var pct=p.duration_days?Math.min(100,Math.round((p.days_collected/p.duration_days)*100)):0;

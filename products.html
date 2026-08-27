@@ -167,7 +167,7 @@
     }
     #toast.show{opacity:1;}
   </style>
-  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=project-cards-r2-20260827">
+  <link rel="stylesheet" href="assets/css/macedonia-ui.css?v=products-red-20260827">
   <script src="assets/js/macedonia-display.js"></script>
 </head>
 <body>
@@ -175,10 +175,10 @@
   <div class="topbar">
     <div class="topbar-title">
       <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      Oil Packages
+      Macedonia Products
     </div>
     <div style="flex:1"></div>
-    <div class="vip-badge" id="vipBadge">Oil Package Member</div>
+    <div class="vip-badge" id="vipBadge">Macedonia Product Member</div>
   </div>
 
   <div class="tabs anim anim-1" id="tabsRow">
@@ -308,21 +308,21 @@
     }
 
     window.buy=async function(btn,pid,price){
-      if(!confirm("Activate this oil package for ₦"+price.toLocaleString()+"?")) return;
+      if(!confirm("Activate this Macedonia Product for ₦"+price.toLocaleString()+"?")) return;
       btn.disabled=true; btn.textContent="Processing…";
       try{
         var {data,error}=await window.sb.rpc("purchase_product",{p_user_id:uid,p_product_id:pid});
         if(error) throw error;
         if(!data?.ok){
           var friendly = data?.error==="purchase_limit_reached"
-            ? "This oil package has reached its activity limit."
-            : data?.error==="vip_disabled" ? "This oil package category is currently unavailable."
+            ? "This Macedonia Product has reached its activity limit."
+            : data?.error==="vip_disabled" ? "This Macedonia Product category is currently unavailable."
             : data?.error==="insufficient_balance" ? "Insufficient capital account balance."
             : (data?.error||"Package activation failed");
           throw new Error(friendly);
         }
         ownedIds.push(pid); // reflect immediately so re-render shows correct state without a refetch
-        window.MacedoniaAuth.toast("Oil package activated!");
+        window.MacedoniaAuth.toast("Macedonia Product activated!");
         setTimeout(()=>location.href="my-investments.html",1000);
       }catch(e){
         window.MacedoniaAuth.toast(e.message||"Package activation failed");

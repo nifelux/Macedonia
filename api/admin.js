@@ -264,7 +264,7 @@ module.exports = async function(req, res) {
       if (search) {
         // Keep the PostgREST expression safe while allowing normal names/emails.
         const safeSearch = search.replace(/[^a-zA-Z0-9@._+ -]/g, " ").trim();
-        if (safeSearch) q = q.or(`full_name.ilike.%${safeSearch}%,email.ilike.%${safeSearch}%`);
+        if (safeSearch) q = q.or(`full_name.ilike.%${safeSearch}%,email.ilike.%${safeSearch}%,phone.ilike.%${safeSearch}%`);
       }
       const { data,error } = await q;
       if(error) return res.status(500).json({ error:error.message });

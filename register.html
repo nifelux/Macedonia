@@ -478,9 +478,6 @@
         if(!email||!phone||!pass||!about){ showAlert("Please fill in all required fields.","error"); return; }
         if(pass.length<6){ showAlert("Password must be at least 6 characters.","error"); return; }
         if(!window.sb){ showAlert("Connection error. Please refresh and try again.","error"); return; }
-        if(pass !== about) {
-        showAlert("Password must match.");
-        return;
 
         btn.disabled=true; btn.textContent="Creating account…";
 

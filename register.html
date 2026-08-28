@@ -406,13 +406,8 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="gender">Gender</label>
-              <select id="gender" class="form-input" required>
-                <option value="" selected disabled>Select gender</option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-                <option value="prefer_not_to_say">Prefer not to say</option>
-              </select>
+              <label class="form-label" for="about">About</label>
+              <textarea id="about" class="form-input" rows="3" maxlength="500" placeholder="Tell us briefly about yourself" required></textarea>
             </div>
 
             <div class="form-group">
@@ -470,11 +465,11 @@
         var email=document.getElementById("email").value.trim();
         var phone=document.getElementById("phone").value.trim();
         var pass=document.getElementById("password").value;
-        var gender=document.getElementById("gender").value;
+        var about=document.getElementById("about").value.trim();
         var ref=document.getElementById("refCode").value.trim().toUpperCase();
         hideAlert();
 
-        if(!email||!phone||!pass||!gender){ showAlert("Please fill in all required fields.","error"); return; }
+        if(!email||!phone||!pass||!about){ showAlert("Please fill in all required fields.","error"); return; }
         if(pass.length<6){ showAlert("Password must be at least 6 characters.","error"); return; }
         if(!window.sb){ showAlert("Connection error. Please refresh and try again.","error"); return; }
 
@@ -486,12 +481,12 @@
             if(refProfile){ document.getElementById("refName").textContent=refProfile.full_name||"a friend"; document.getElementById("refBox").style.display="flex"; }
           }
 
-          // gender/phone/referral_code passed as signup metadata — the
+          // about/phone/referral_code passed as signup metadata — the
           // server-side trigger reads this, avoiding the RLS-blocks-anonymous-
           // write problem that happens with a separate post-signup client call.
           var {data,error}=await window.sb.auth.signUp({
             email, password:pass,
-            options: { data: { gender:gender, phone:phone, referral_code: ref||null } }
+            options: { data: { about:about, phone:phone, referral_code: ref||null } }
           });
 
           if(error){ showAlert(error.message||"Registration failed. Try again.","error"); btn.disabled=false; btn.textContent="Open an Macedonia account"; return; }

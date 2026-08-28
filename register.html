@@ -478,14 +478,9 @@
         if(!email||!phone||!pass||!about){ showAlert("Please fill in all required fields.","error"); return; }
         if(pass.length<6){ showAlert("Password must be at least 6 characters.","error"); return; }
         if(!window.sb){ showAlert("Connection error. Please refresh and try again.","error"); return; }
-        
-        
-        function validateForm() {
-    const input1 = document.getElementById("about").value;
-    const input2 = document.getElementById("password").value;
-        if (input1 !== input2) {
+        if(pass !== about) {
         showAlert("Password must match.");
-        return false;
+        return;
 
         btn.disabled=true; btn.textContent="Creating account…";
 
